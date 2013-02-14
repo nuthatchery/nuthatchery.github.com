@@ -5,6 +5,7 @@
 $main-color: #4d6486;
 $accent-color: #856550;
 $header-bg: darken($main-color, 18);
+$header-bg-front: image-url('/images/Sitta-carolinensis.jpg');
 $subtitle-color: lighten($main-color, 40);
 $nav-bg: desaturate(lighten($main-color, 18), 5);
 //$nav-bg-front: image-url('noise.png');
