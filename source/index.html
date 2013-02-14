@@ -2,7 +2,7 @@
 layout: default
 paginate: 3
 ---
-<div>
+<div class="blog-index">
 <article>
   <h1>Tree-Walking with Nuthatch</h1>
   
@@ -26,11 +26,11 @@ paginate: 3
 
   <p>
 	Nuthatch is described in the upcoming
-	paper <em><a href="http://softlang.uni-koblenz.de/nuthatch/">Walk Your
-	Tree Any Way You Want</a></em>.
+	paper <a href="http://softlang.uni-koblenz.de/nuthatch/"><em>Walk Your
+	Tree Any Way You Want</em></a>.
   </p>
 </article>
-<div class="blog-index">
+
   {% assign index = true %}
   {% for post in paginator.posts %}
   {% assign content = post.content %}
@@ -44,7 +44,7 @@ paginate: 3
     {% endif %}
   </div>
 </div>
-</div>
+
 <aside class="sidebar">
   {% if site.main_asides.size %}
     {% include_array main_asides %}
