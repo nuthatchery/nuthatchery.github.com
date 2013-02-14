@@ -2,10 +2,10 @@
 #      Main Configs       #
 # ----------------------- #
 
-url: http://nuthatchery.github.com
-title: My Octopress Blog
-subtitle: A blogging framework for hackers.
-author: Your Name
+url: http://nuthatchery.org
+title: Nuthatch
+subtitle: Tree-Walking for Peeps
+author: The Nuthatchery
 simple_search: http://google.com/search
 description:
 
@@ -58,8 +58,8 @@ default_asides: [asides/recent_posts.html, asides/github.html, asides/twitter.ht
 # ----------------------- #
 
 # Github repositories
-github_user:
-github_repo_count: 0
+github_user: nuthatchery
+github_repo_count: 10
 github_show_profile_link: true
 github_skip_forks: true
 
