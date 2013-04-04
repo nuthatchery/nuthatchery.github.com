@@ -5,12 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Nuthatch</title>
+  <title>Resources for “Walk Your Tree Any Way You Want” (ICMT'13) - Nuthatch</title>
   <meta name="author" content="The Nuthatchery">
 
   
-  <meta name="description" content="This simple example shows how to a walk a tree and convert it to a term
-representation (such as +(5, *(+(7, 3), 4)), for example). ">
+  <meta name="description" content="Resources for “Walk Your Tree Any Way You Want” (ICMT'13) Apr 4th, 2013 This page collects examples and extra resources for the ICMT (International &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -19,7 +18,7 @@ representation (such as +(5, *(+(7, 3), 4)), for example). ">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://nuthatchery.org/">
+  <link rel="canonical" href="http://nuthatchery.org/icmt13/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -69,48 +68,12 @@ representation (such as +(5, *(+(7, 3), 4)), for example). ">
 </nav>
   <div id="main">
     <div id="content">
-      <div class="blog-index">
-<article>
-  <h1>Tree-Walking with Nuthatch</h1>
-  <img class="basic-alignment right" src="images/tree-walking-150x.png" width="150" height="210" />
+      <div>
+<article role="article">
   
-  <p>
-  Nuthatch is a system of traversing, collecting information from, and
-  rewriting trees, based on the idea of <em>tree walking</em>. The main
-  application is software analysis and transformation. We provide a
-  library, Nuthatch/J, for doing tree walking in Java, with adapters for
-  interfacing with popular software transformation tools
-  like <a href="http://strategoxt.org/">Stratego/XT</a>
-  and <a href="http://www.rascal-mpl.org/">Rascal</a>.
-  </p>
-
-  <p>
-	Transformations are described as <em>walks</em> that proceed in
-	programmer-defined steps. Each step may which may observe join points
-	of a traversal, and affect state associated with the walk and also
-	rewrite the walked tree. Each step ends by walking to a different node
-	in the tree, following the tree branches.
-  <p>
-
-  <p>
-	Nuthatch is described in the upcoming
-	paper <a href="http://softlang.uni-koblenz.de/nuthatch/"><em>Walk Your
-	Tree Any Way You Want</em></a>.
-  </p>
-</article>
-
-  
-  
-  
-    <article>
-      
   <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/02/14/example-tostring/">Example: ToString</a></h1>
-    
-    
-      <p class="meta">
-        
+    <h1 class="entry-title">Resources for “Walk Your Tree Any Way You Want” (ICMT'13)</h1>
+    <p class="meta">
 
 
 
@@ -122,39 +85,81 @@ representation (such as +(5, *(+(7, 3), 4)), for example). ">
   
 
 
-<time datetime="2013-02-14T00:00:00+01:00" pubdate data-updated="true">Feb 14<span>th</span>, 2013</time>
-        
-      </p>
-    
+<time datetime="2013-04-04T14:34:00+02:00" pubdate data-updated="true">Apr 4<span>th</span>, 2013</time></p>
   </header>
-
-
-  <div class="entry-content"><p>This simple example shows how to a walk a tree and convert it to a term
-representation (such as <code>+(5, *(+(7, 3), 4))</code>, for example).</p>
-
-</div>
   
+    <p>This page collects examples and extra resources for the ICMT (International
+Conference on Model Transformation) paper <em><a href="http://softlang.uni-koblenz.de/nuthatch/">Walk Your Tree Any Way You
+Want</a></em>.</p>
+
+<p><em>Note: we may continue update and improve this page up until the time of
+ the conference (June 18–19, 2013). After that, this page will be locked
+ and the source code tagged, so that the resources remain consistent with
+ the paper even though Nuthatch is developed further.</em></p>
+
+<ul>
+<li><a href="/icmt13/benchmarks.html">Preliminary benchmark results</a></li>
+</ul>
+
+
+
+
   
     <footer>
-      <a rel="full-article" href="/blog/2013/02/14/example-tostring/">Read on &rarr;</a>
+      <p class="meta">
+        
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-04-04T14:34:00+02:00" pubdate data-updated="true">Apr 4<span>th</span>, 2013</time>
+        
+      </p>
+      
+        <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://nuthatchery.org/icmt13/index.html" data-via="" data-counturl="http://nuthatchery.org/icmt13/index.html" >Tweet</a>
+  
+  
+  
+</div>
+
+      
     </footer>
   
+</article>
 
-
-    </article>
-  
-  <div class="pagination">
-    
-  </div>
 </div>
 
 <aside class="sidebar">
   
-    
+  
+    <section> <h1>Nuthatch@ICMT13</h1> <ul> <li><a href="/icmt13/">Overview</a></li> <li><a href="/icmt13/examples/">Examples</a> <ul> <li><a href="/icmt13/examples/class2table.html">Class2Table</a></li> </ul> </li> <li><a href="/icmt13/benchmarks.html">Benchmarks</a></li> </ul> </section>
+  
+  
+    <section>
+  <h1>About Nuthatch</h1>
+  <p>
+	Nuthatch is a software transformation based on the idea of tree
+	walking, where transformations are described as walks that proceed in
+	programmer-defined steps which may observe join points of a traversal,
+	may affect state associated with the walk, may rewrite the walked tree,
+	and must walk somewhere.
+  </p>
+</section>
+
 <section>
   <h1>GitHub Repos</h1>
   <ul id="gh_repos">
-    <li class="loading">Status updating&#8230;</li>
+    <li class="loading">Status updating...</li>
   </ul>
   
   <a href="https://github.com/nuthatchery">@nuthatchery</a> on GitHub
@@ -187,6 +192,7 @@ representation (such as <code>+(5, *(+(7, 3), 4))</code>, for example).</p>
 
   
 </aside>
+
 
     </div>
   </div>
