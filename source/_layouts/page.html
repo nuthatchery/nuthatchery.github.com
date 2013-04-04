@@ -33,6 +33,12 @@ layout: default
 </div>
 {% unless page.sidebar == false %}
 <aside class="sidebar">
+  {{ extra_sidebar }}
+  {% if page.extra_sidebar %}
+    {{ page.extra_sidebar }}
+  {% else %}
+    Bar
+  {% endif %}
   {% if site.page_asides.size %}
     {% include_array page_asides %}
   {% else %}

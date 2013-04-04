@@ -1,5 +1,6 @@
 ---
-layout: page
+layout: icmt13
+date: 2013-04-04 14:34
 title: "Resources for “Walk Your Tree Any Way You Want” (ICMT'13)"
 comments: true
 sharing: true
