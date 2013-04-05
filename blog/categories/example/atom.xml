@@ -4,7 +4,7 @@
   <title><![CDATA[Category: example | Nuthatch]]></title>
   <link href="http://nuthatchery.org/blog/categories/example/atom.xml" rel="self"/>
   <link href="http://nuthatchery.org/"/>
-  <updated>2013-04-04T22:20:27+02:00</updated>
+  <updated>2013-04-05T12:06:48+02:00</updated>
   <id>http://nuthatchery.org/</id>
   <author>
     <name><![CDATA[The Nuthatchery]]></name>
@@ -77,16 +77,28 @@ append to (<code>appendToS()</code>), observe (<code>getS()</code>) and set (<co
 <span class='line-number'>35</span>
 <span class='line-number'>36</span>
 <span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
 </pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kn">package</span> <span class="n">nuthatch</span><span class="o">.</span><span class="na">examples</span><span class="o">;</span>
 </span><span class='line'>
-</span><span class='line'><span class="kn">import</span> <span class="nn">nuthatch.walk.Step</span><span class="o">;</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">nuthatch.walker.impl.SimpleWalker</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">nuthatch.walk.Walk</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">nuthatch.walk.impl.SimpleWalker</span><span class="o">;</span>
 </span><span class='line'>
 </span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ToString</span> <span class="o">{</span>
 </span><span class='line'>	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
 </span><span class='line'>		<span class="c1">// Walk which outputs the tree in a term-like representation. The walker has a built-int</span>
 </span><span class='line'>		<span class="c1">// variable (or register) &#39;S&#39;, which is basically a string builder suitable for accumulating a string</span>
-</span><span class='line'>		<span class="n">Step</span><span class="o">&lt;</span><span class="n">SimpleWalker</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;&gt;</span> <span class="n">toTerm</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Step</span><span class="o">&lt;</span><span class="n">SimpleWalker</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;&gt;()</span> <span class="o">{</span>
+</span><span class='line'>		<span class="n">Walk</span><span class="o">&lt;</span><span class="n">SimpleWalker</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;&gt;</span> <span class="n">toTerm</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Walk</span><span class="o">&lt;</span><span class="n">SimpleWalker</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;&gt;()</span> <span class="o">{</span>
+</span><span class='line'>			<span class="nd">@Override</span>
+</span><span class='line'>			<span class="kd">public</span> <span class="kt">void</span> <span class="nf">init</span><span class="o">(</span><span class="n">SimpleWalker</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">walker</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>
+</span><span class='line'>			<span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>
 </span><span class='line'>			<span class="nd">@Override</span>
 </span><span class='line'>			<span class="kd">public</span> <span class="kt">int</span> <span class="nf">step</span><span class="o">(</span><span class="n">SimpleWalker</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">w</span><span class="o">)</span> <span class="o">{</span>
 </span><span class='line'>				<span class="k">if</span><span class="o">(</span><span class="n">w</span><span class="o">.</span><span class="na">isAtLeaf</span><span class="o">())</span> <span class="o">{</span> <span class="c1">// we&#39;re at a leaf, print data value</span>

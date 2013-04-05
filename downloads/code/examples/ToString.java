@@ -1,13 +1,19 @@
 package nuthatch.examples;
 
-import nuthatch.walk.Step;
-import nuthatch.walker.impl.SimpleWalker;
+import nuthatch.walk.Walk;
+import nuthatch.walk.impl.SimpleWalker;
 
 public class ToString {
 	public static void main(String[] args) {
 		// Walk which outputs the tree in a term-like representation. The walker has a built-int
 		// variable (or register) 'S', which is basically a string builder suitable for accumulating a string
-		Step<SimpleWalker<String, String>> toTerm = new Step<SimpleWalker<String, String>>() {
+		Walk<SimpleWalker<String, String>> toTerm = new Walk<SimpleWalker<String, String>>() {
+			@Override
+			public void init(SimpleWalker<String, String> walker) {
+
+			}
+
+
 			@Override
 			public int step(SimpleWalker<String, String> w) {
 				if(w.isAtLeaf()) { // we're at a leaf, print data value
