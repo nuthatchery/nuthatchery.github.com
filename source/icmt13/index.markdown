@@ -19,4 +19,6 @@ Want](http://softlang.uni-koblenz.de/nuthatch/)*.
  the paper even though Nuthatch is developed further.*
 
 
+* Examples
+    * [Class2Table](/icmt13/examples/class2table.html)
 * [Preliminary benchmark results](/icmt13/benchmarks.html)

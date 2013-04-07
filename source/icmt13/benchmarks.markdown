@@ -14,7 +14,7 @@ asides: foo
 * Nuthatch/J, git version from 2013-04-04: [nuthatch](https://github.com/nuthatchery/nuthatch), [nuthatch-stratego](https://github.com/nuthatchery/nuthatch-stratego), [nuthatch-javafront](https://github.com/nuthatchery/nuthatch-javafront), [nuthatch-benchmark](https://github.com/nuthatchery/nuthatch-benchmark)
 
 * Stratego from [Spoofax v1.1](http://strategoxt.org/Spoofax).  Stratego
-  code is executed using the *hybrid intepreted*, where the standard
+  code is executed using the *hybrid intepreter*, where the standard
   libraries (including traversals like ```topdown``` and ```bottomup```)
   have been compiled to Java, but the actual benchmark code is run in an
   intepreter.
@@ -111,3 +111,23 @@ and Nuthatch/J. The code is also a lot more verbose, so hand-writing code
 is probably not feasible for larger transformations. But, of course,
 hand-written Java transformations would likely not be based on Stratego
 terms, as these are rather inconvenient to use from Java.
+
+# Running the Benchmarks Yourself
+
+The recipe below assumes you're using Eclipse.
+
+0. Get the [Benchmark
+Project](https://github.com/nuthatchery/nuthatch-benchmark) from GitHub.
+
+0. Get [Nuthatch/J](https://github.com/nuthatchery/nuthatch),
+[Nuthatch/J+Stratego](https://github.com/nuthatchery/nuthatch-stratego) and
+[Nuthatch/J+JavaFront](https://github.com/nuthatchery/nuthatch-javafront)
+from GitHub, or install them from the [Nuthatch Eclipse update
+site](http://updates.nuthatchery.org/).
+
+0. To run the Stratego code, either install [Spoofax](http://strategoxt.org/Spoofax)
+in your Eclipse, or install the Stratego Interpreter feature from the
+[Nuthatch Eclipse update site](http://updates.nuthatchery.org/).
+
+0. Run ‘nuthatch.benchmark.BenchmarkRunner’, with the current directory set
+to either ‘src’ or ‘bin’.
