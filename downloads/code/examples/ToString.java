@@ -1,7 +1,7 @@
 package nuthatch.examples;
 
-import nuthatch.walk.Walk;
-import nuthatch.walk.impl.SimpleWalker;
+import nuthatch.library.Walk;
+import nuthatch.walker.impl.SimpleWalker;
 
 public class ToString {
 	public static void main(String[] args) {
@@ -25,7 +25,7 @@ public class ToString {
 				else if(w.from(LAST)) { // just finished with children, close parenthesis
 					w.appendToS(")");
 				}
-				else { // coming up from a child (not the last), insert a comma 
+				else { // coming up from a child (not the last), insert a comma
 					w.appendToS(", ");
 				}
 
@@ -34,7 +34,7 @@ public class ToString {
 		};
 
 		// instantiate walker with an example tree and the above step function
-		SimpleWalker<String, String> toTermWalker = new SimpleWalker<String, String>(ExampleTree.TREE, toTerm);
+		SimpleWalker<String, String> toTermWalker = new SimpleWalker<String, String>(ExampleTree.TREE.makeCursor(), toTerm);
 		// run it
 		toTermWalker.start();
 		// print the contents of S

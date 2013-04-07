@@ -164,8 +164,8 @@ append to (<code>appendToS()</code>), observe (<code>getS()</code>) and set (<co
 <span class='line-number'>43</span>
 </pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kn">package</span> <span class="n">nuthatch</span><span class="o">.</span><span class="na">examples</span><span class="o">;</span>
 </span><span class='line'>
-</span><span class='line'><span class="kn">import</span> <span class="nn">nuthatch.walk.Walk</span><span class="o">;</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">nuthatch.walk.impl.SimpleWalker</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">nuthatch.library.Walk</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">nuthatch.walker.impl.SimpleWalker</span><span class="o">;</span>
 </span><span class='line'>
 </span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ToString</span> <span class="o">{</span>
 </span><span class='line'>  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
@@ -189,7 +189,7 @@ append to (<code>appendToS()</code>), observe (<code>getS()</code>) and set (<co
 </span><span class='line'>              <span class="k">else</span> <span class="nf">if</span><span class="o">(</span><span class="n">w</span><span class="o">.</span><span class="na">from</span><span class="o">(</span><span class="n">LAST</span><span class="o">))</span> <span class="o">{</span> <span class="c1">// just finished with children, close parenthesis</span>
 </span><span class='line'>                  <span class="n">w</span><span class="o">.</span><span class="na">appendToS</span><span class="o">(</span><span class="s">&quot;)&quot;</span><span class="o">);</span>
 </span><span class='line'>              <span class="o">}</span>
-</span><span class='line'>              <span class="k">else</span> <span class="o">{</span> <span class="c1">// coming up from a child (not the last), insert a comma </span>
+</span><span class='line'>              <span class="k">else</span> <span class="o">{</span> <span class="c1">// coming up from a child (not the last), insert a comma</span>
 </span><span class='line'>                  <span class="n">w</span><span class="o">.</span><span class="na">appendToS</span><span class="o">(</span><span class="s">&quot;, &quot;</span><span class="o">);</span>
 </span><span class='line'>              <span class="o">}</span>
 </span><span class='line'>
@@ -198,7 +198,7 @@ append to (<code>appendToS()</code>), observe (<code>getS()</code>) and set (<co
 </span><span class='line'>      <span class="o">};</span>
 </span><span class='line'>
 </span><span class='line'>      <span class="c1">// instantiate walker with an example tree and the above step function</span>
-</span><span class='line'>      <span class="n">SimpleWalker</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">toTermWalker</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SimpleWalker</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;(</span><span class="n">ExampleTree</span><span class="o">.</span><span class="na">TREE</span><span class="o">,</span> <span class="n">toTerm</span><span class="o">);</span>
+</span><span class='line'>      <span class="n">SimpleWalker</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">toTermWalker</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SimpleWalker</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;(</span><span class="n">ExampleTree</span><span class="o">.</span><span class="na">TREE</span><span class="o">.</span><span class="na">makeCursor</span><span class="o">(),</span> <span class="n">toTerm</span><span class="o">);</span>
 </span><span class='line'>      <span class="c1">// run it</span>
 </span><span class='line'>      <span class="n">toTermWalker</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
 </span><span class='line'>      <span class="c1">// print the contents of S</span>

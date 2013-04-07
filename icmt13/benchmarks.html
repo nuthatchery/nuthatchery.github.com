@@ -95,7 +95,7 @@
 <ul>
 <li><p>Nuthatch/J, git version from 2013-04-04: <a href="https://github.com/nuthatchery/nuthatch">nuthatch</a>, <a href="https://github.com/nuthatchery/nuthatch-stratego">nuthatch-stratego</a>, <a href="https://github.com/nuthatchery/nuthatch-javafront">nuthatch-javafront</a>, <a href="https://github.com/nuthatchery/nuthatch-benchmark">nuthatch-benchmark</a></p></li>
 <li><p>Stratego from <a href="http://strategoxt.org/Spoofax">Spoofax v1.1</a>.  Stratego
-code is executed using the <em>hybrid intepreted</em>, where the standard
+code is executed using the <em>hybrid intepreter</em>, where the standard
 libraries (including traversals like <code>topdown</code> and <code>bottomup</code>)
 have been compiled to Java, but the actual benchmark code is run in an
 intepreter.</p></li>
@@ -226,6 +226,26 @@ terms, as these are rather inconvenient to use from Java.</p></li>
 </ol>
 
 
+<h1>Running the Benchmarks Yourself</h1>
+
+<p>The recipe below assumes you&#8217;re using Eclipse.</p>
+
+<ol>
+<li><p>Get the <a href="https://github.com/nuthatchery/nuthatch-benchmark">Benchmark
+Project</a> from GitHub.</p></li>
+<li><p>Get <a href="https://github.com/nuthatchery/nuthatch">Nuthatch/J</a>,
+<a href="https://github.com/nuthatchery/nuthatch-stratego">Nuthatch/J+Stratego</a> and
+<a href="https://github.com/nuthatchery/nuthatch-javafront">Nuthatch/J+JavaFront</a>
+from GitHub, or install them from the <a href="http://updates.nuthatchery.org/">Nuthatch Eclipse update
+site</a>.</p></li>
+<li><p>To run the Stratego code, either install <a href="http://strategoxt.org/Spoofax">Spoofax</a>
+in your Eclipse, or install the Stratego Interpreter feature from the
+<a href="http://updates.nuthatchery.org/">Nuthatch Eclipse update site</a>.</p></li>
+<li><p>Run ‘nuthatch.benchmark.BenchmarkRunner’, with the current directory set
+to either ‘src’ or ‘bin’.</p></li>
+</ol>
+
+
 
 
   
@@ -266,7 +286,7 @@ terms, as these are rather inconvenient to use from Java.</p></li>
 <aside class="sidebar">
   
   
-    <section> <h1>Nuthatch@ICMT13</h1> <ul> <li><a href="/icmt13/">Overview</a></li> <li><a href="/icmt13/examples/">Examples</a> <ul> <li><a href="/icmt13/examples/class2table.html">Class2Table</a></li> </ul> </li> <li><a href="/icmt13/benchmarks.html">Benchmarks</a></li> </ul> </section>
+    <section> <h1>Nuthatch@ICMT13</h1> <ul> <li><a href="/icmt13/">Overview</a></li> <li>Examples <ul> <li>– <a href="/icmt13/examples/class2table.html">Class2Table</a></li> </ul> </li> <li><a href="/icmt13/benchmarks.html">Benchmarks</a></li> </ul> </section>
   
   
     <section>
