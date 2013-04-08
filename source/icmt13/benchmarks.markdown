@@ -13,11 +13,15 @@ asides: foo
 
 * Nuthatch/J, git version from 2013-04-04: [nuthatch](https://github.com/nuthatchery/nuthatch), [nuthatch-stratego](https://github.com/nuthatchery/nuthatch-stratego), [nuthatch-javafront](https://github.com/nuthatchery/nuthatch-javafront), [nuthatch-benchmark](https://github.com/nuthatchery/nuthatch-benchmark)
 
-* Stratego from [Spoofax v1.1](http://strategoxt.org/Spoofax).  Stratego
-  code is executed using the *hybrid intepreter*, where the standard
-  libraries (including traversals like ```topdown``` and ```bottomup```)
-  have been compiled to Java, but the actual benchmark code is run in an
-  intepreter.
+* Stratego interpreter from [Spoofax v1.1](http://strategoxt.org/Spoofax).
+  Stratego code is executed using the *hybrid intepreter*, where the
+  standard libraries (including traversals like ```topdown``` and
+  ```bottomup```) have been compiled to Java, but the actual benchmark code
+  is run in an intepreter
+
+* Stratego-to-Java compiler from [Spoofax
+  v1.1](http://strategoxt.org/Spoofax). The code is compiled to Java, and
+  called from the benchmark runner.
 
 * All the implementations (Nuthatch/J, Stratego, hand-written Java) use
   Stratego's Java term implementation.
@@ -30,7 +34,8 @@ OpenJDK 64-Bit Server VM (build 23.7-b01, mixed mode)
 ```
 
 * Hardware: AMD FX-8350 Eight-Core Processor with 32GB RAM. All tests run
-  on a single core on an otherwise idle system.
+  on a single core on an otherwise idle system, with ```nice -10``` and
+  pinned to a single core.
 
 # Benchmarks
 
@@ -42,9 +47,17 @@ Also, the reader should note that not attempt has been made yet to optimize
 Nuthatch/J, and that the Stratego results below are from a combination of
 compiled and interpreted code; fully compiled code would likely run faster.
 
-For the benchmarks that perform transformation, the results have been
-checked against the other implementations (e.g., the commute benchmark
-results in the same Stratego term for all three implementations).
+For the benchmarks that perform transformation or gather information, the
+results have been checked against the other implementations (e.g., the
+commute benchmark results in the same Stratego term for all three
+implementations).
+
+### Collect
+Traverse the tree, collecting all strings in to a list.
+
+* [Nuthatch
+  implementation](https://github.com/nuthatchery/nuthatch-benchmark/blob/master/src/nuthatch/benchmark/nuthatch/Collect.java)
+* Stratego implementation: ```collect-all(is-string, conc)```
 
 ### Commute
 Traverse the tree, and flip the arguments on all two-argument method calls.
@@ -74,25 +87,39 @@ Traverse the entire tree, doing nothing.
 # Results
 ### Source File: [JavaPatterns.java](https://github.com/nuthatchery/nuthatch-javafront/blob/master/src/nuthatch/javafront/JavaPatterns.java) (from Nuthatch/J+JavaFront)
 
+*Stratego* results are from the interpreter, *Stratego/J* results are from
+compiled Java code.
+
 ```
+Collect
+-------
+Collect              (Nuthatch):  14977ms, 5000 iterations,  2995µs per iteration
+Collect              (Stratego):  25053ms, 5000 iterations,  5011µs per iteration
+Collect            (Stratego/J):  21164ms, 5000 iterations,  4233µs per iteration
+
 Commute
--------------------
-Commute            (Nuthatch):  22411ms, 5000 iterations,  4482µs per iteration
-Commute                (Java):   3605ms, 5000 iterations,   721µs per iteration
-Commute (Topdown)  (Stratego): 149014ms, 5000 iterations, 29803µs per iteration
+-------
+Commute              (Nuthatch):  23147ms, 5000 iterations,  4629µs per iteration
+Commute (Topdown)    (Stratego): 148870ms, 5000 iterations, 29774µs per iteration
+Commute (Topdown)  (Stratego/J):   4430ms, 5000 iterations,   886µs per iteration
+Commute                  (Java):   3999ms, 5000 iterations,   800µs per iteration
 
 Bottomup Build 42
--------------------
-BottomupBuild      (Nuthatch):  29168ms, 5000 iterations,  5834µs per iteration
-BottomupBuild      (Stratego):  13507ms, 5000 iterations,  2701µs per iteration
+-----------------
+BottomupBuild        (Nuthatch):  28250ms, 5000 iterations,  5650µs per iteration
+BottomupBuild        (Stratego):  15814ms, 5000 iterations,  3163µs per iteration
+BottomupBuild      (Stratego/J):   5877ms, 5000 iterations,  1175µs per iteration
 
 Identity Traversals
 -------------------
-DefaultWalk        (Nuthatch):   6481ms, 5000 iterations,  1296µs per iteration
-Traverse               (Java):   1735ms, 5000 iterations,   347µs per iteration
-TopDown            (Stratego):   5135ms, 5000 iterations,  1027µs per iteration
-BottomUp           (Stratego):   5822ms, 5000 iterations,  1164µs per iteration
-DownUp             (Stratego):   8519ms, 5000 iterations,  1704µs per iteration
+DefaultWalk          (Nuthatch):   7557ms, 5000 iterations,  1511µs per iteration
+TopDown              (Stratego):   5086ms, 5000 iterations,  1017µs per iteration
+BottomUp             (Stratego):   5626ms, 5000 iterations,  1125µs per iteration
+DownUp               (Stratego):   8515ms, 5000 iterations,  1703µs per iteration
+TopDown            (Stratego/J):   2597ms, 5000 iterations,   519µs per iteration
+BottomUp           (Stratego/J):   2607ms, 5000 iterations,   521µs per iteration
+DownUp             (Stratego/J):   2795ms, 5000 iterations,   559µs per iteration
+Traverse                 (Java):   2398ms, 5000 iterations,   480µs per iteration
 ```
 
 # Conclusions
@@ -102,14 +129,17 @@ DownUp             (Stratego):   8519ms, 5000 iterations,  1704µs per iteration
 power). Stratego's one-way traversals (topdown and bottomup) are slightly
 faster.
 
-0. Rewriting is a lot slower in Stratego; this would likely be different
-for compiled Stratego code.
+0. Rewriting is a lot slower in interpreted Stratego, but almost as fast as
+hand-written code in compiled Stratego.
 
-0. Hand-written Java code seems to be 2–10 times faster than both Stratego
-and Nuthatch/J. The code is also a lot more verbose, so hand-writing code
-is probably not feasible for larger transformations. But, of course,
-hand-written Java transformations would likely not be based on Stratego
-terms, as these are rather inconvenient to use from Java.
+0. Cases where Nuthatch gather information into standard Java containers
+(*Collect*) run faster than even compiled Stratego code.
+
+0. Hand-written Java code seems to be 2–10 times faster than both interpred
+Stratego and Nuthatch/J. The code is also a lot more verbose, so
+hand-writing code is probably not feasible for larger transformations. But,
+of course, hand-written Java transformations would likely not be based on
+Stratego terms, as these are rather inconvenient to use from Java.
 
 # Running the Benchmarks Yourself
 
