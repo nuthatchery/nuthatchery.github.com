@@ -143,9 +143,10 @@ implementations).</p>
 <p>Traverse the tree, collecting all strings in to a list.</p>
 
 <ul>
-<li><a href="https://github.com/nuthatchery/nuthatch-benchmark/blob/master/src/nuthatch/benchmark/nuthatch/Collect.java">Nuthatch
-implementation</a></li>
-<li>Stratego implementation: <code>collect-all(is-string, conc)</code></li>
+<li><p><a href="https://github.com/nuthatchery/nuthatch-benchmark/blob/master/src/nuthatch/benchmark/nuthatch/Collect.java">Nuthatch
+implementation</a>
+(Basically, <code>walk(down(match(string(), ... result.add(walker.getData()); ...)))</code>)</p></li>
+<li><p>Stratego implementation: <code>collect-all(is-string, conc)</code></p></li>
 </ul>
 
 
