@@ -21,4 +21,6 @@ Want](http://softlang.uni-koblenz.de/nuthatch/)*.
 
 * Examples
     * [Class2Table](/icmt13/examples/class2table.html)
+    * [Simplify](/icmt13/examples/simplify.html)
+    * [ToString](/icmt13/examples/tostring.html)
 * [Preliminary benchmark results](/icmt13/benchmarks.html)

@@ -77,30 +77,29 @@ Traverse the entire tree, doing nothing.
 ```
 Commute
 -------------------
-Commute            (Nuthatch):  8004ms, 1000 iterations,  8004µs per iteration
-Commute                (Java):   773ms, 1000 iterations,   773µs per iteration
-Commute (Topdown)  (Stratego): 31578ms, 1000 iterations, 31578µs per iteration
-Commute (Bottomup) (Stratego): 32837ms, 1000 iterations, 32837µs per iteration
+Commute            (Nuthatch):  22411ms, 5000 iterations,  4482µs per iteration
+Commute                (Java):   3605ms, 5000 iterations,   721µs per iteration
+Commute (Topdown)  (Stratego): 149014ms, 5000 iterations, 29803µs per iteration
 
 Bottomup Build 42
 -------------------
-BottomupBuild      (Nuthatch):  6277ms, 1000 iterations,  6277µs per iteration
-BottomupBuild      (Stratego):  3183ms, 1000 iterations,  3183µs per iteration
+BottomupBuild      (Nuthatch):  29168ms, 5000 iterations,  5834µs per iteration
+BottomupBuild      (Stratego):  13507ms, 5000 iterations,  2701µs per iteration
 
 Identity Traversals
 -------------------
-DefaultWalk        (Nuthatch):  1845ms, 1000 iterations,  1845µs per iteration
-Traverse               (Java):   422ms, 1000 iterations,   422µs per iteration
-TopDown            (Stratego):  1050ms, 1000 iterations,  1050µs per iteration
-BottomUp           (Stratego):  1271ms, 1000 iterations,  1271µs per iteration
-DownUp             (Stratego):  1829ms, 1000 iterations,  1829µs per iteration
+DefaultWalk        (Nuthatch):   6481ms, 5000 iterations,  1296µs per iteration
+Traverse               (Java):   1735ms, 5000 iterations,   347µs per iteration
+TopDown            (Stratego):   5135ms, 5000 iterations,  1027µs per iteration
+BottomUp           (Stratego):   5822ms, 5000 iterations,  1164µs per iteration
+DownUp             (Stratego):   8519ms, 5000 iterations,  1704µs per iteration
 ```
 
 # Conclusions
 
 0. Nuthatch/J's default walk seems comparable speed-wise to Stratego's
 ```downup``` traversal (not surprising, as they have similar
-power). Stratego's one-way traversals (topdown and bottomup) are somewhat
+power). Stratego's one-way traversals (topdown and bottomup) are slightly
 faster.
 
 0. Rewriting is a lot slower in Stratego; this would likely be different
