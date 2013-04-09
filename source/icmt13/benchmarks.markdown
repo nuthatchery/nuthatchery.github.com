@@ -7,11 +7,11 @@ sharing: true
 footer: true
 asides: foo
 ---
-*Results as of April 4, 2013*
+*Results as of April 8, 2013*
 
 # Setup
 
-* Nuthatch/J, git version from 2013-04-04: [nuthatch](https://github.com/nuthatchery/nuthatch), [nuthatch-stratego](https://github.com/nuthatchery/nuthatch-stratego), [nuthatch-javafront](https://github.com/nuthatchery/nuthatch-javafront), [nuthatch-benchmark](https://github.com/nuthatchery/nuthatch-benchmark)
+* Nuthatch/J, git version from 2013-04-08: [nuthatch](https://github.com/nuthatchery/nuthatch), [nuthatch-stratego](https://github.com/nuthatchery/nuthatch-stratego), [nuthatch-javafront](https://github.com/nuthatchery/nuthatch-javafront), [nuthatch-benchmark](https://github.com/nuthatchery/nuthatch-benchmark)
 
 * Stratego interpreter from [Spoofax v1.1](http://strategoxt.org/Spoofax).
   Stratego code is executed using the *hybrid intepreter*, where the
@@ -57,6 +57,8 @@ Traverse the tree, collecting all strings in to a list.
 
 * [Nuthatch
   implementation](https://github.com/nuthatchery/nuthatch-benchmark/blob/master/src/nuthatch/benchmark/nuthatch/Collect.java)
+  (Basically, ```walk(down(match(string(), ... result.add(walker.getData()); ...)))```)
+
 * Stratego implementation: ```collect-all(is-string, conc)```
 
 ### Commute
@@ -87,35 +89,35 @@ Traverse the entire tree, doing nothing.
 # Results
 ### Source File: [JavaPatterns.java](https://github.com/nuthatchery/nuthatch-javafront/blob/master/src/nuthatch/javafront/JavaPatterns.java) (from Nuthatch/J+JavaFront)
 
-*Stratego* results are from the interpreter, *Stratego/J* results are from
+*Stratego/I* results are from the interpreter, *Stratego/J* results are from
 compiled Java code.
 
 ```
 Collect
 -------
 Collect              (Nuthatch):  14977ms, 5000 iterations,  2995µs per iteration
-Collect              (Stratego):  25053ms, 5000 iterations,  5011µs per iteration
+Collect            (Stratego/I):  25053ms, 5000 iterations,  5011µs per iteration
 Collect            (Stratego/J):  21164ms, 5000 iterations,  4233µs per iteration
 
 Commute
 -------
 Commute              (Nuthatch):  23147ms, 5000 iterations,  4629µs per iteration
-Commute (Topdown)    (Stratego): 148870ms, 5000 iterations, 29774µs per iteration
+Commute (Topdown)  (Stratego/I): 148870ms, 5000 iterations, 29774µs per iteration
 Commute (Topdown)  (Stratego/J):   4430ms, 5000 iterations,   886µs per iteration
 Commute                  (Java):   3999ms, 5000 iterations,   800µs per iteration
 
 Bottomup Build 42
 -----------------
 BottomupBuild        (Nuthatch):  28250ms, 5000 iterations,  5650µs per iteration
-BottomupBuild        (Stratego):  15814ms, 5000 iterations,  3163µs per iteration
+BottomupBuild      (Stratego/I):  15814ms, 5000 iterations,  3163µs per iteration
 BottomupBuild      (Stratego/J):   5877ms, 5000 iterations,  1175µs per iteration
 
 Identity Traversals
 -------------------
 DefaultWalk          (Nuthatch):   7557ms, 5000 iterations,  1511µs per iteration
-TopDown              (Stratego):   5086ms, 5000 iterations,  1017µs per iteration
-BottomUp             (Stratego):   5626ms, 5000 iterations,  1125µs per iteration
-DownUp               (Stratego):   8515ms, 5000 iterations,  1703µs per iteration
+TopDown            (Stratego/I):   5086ms, 5000 iterations,  1017µs per iteration
+BottomUp           (Stratego/I):   5626ms, 5000 iterations,  1125µs per iteration
+DownUp             (Stratego/I):   8515ms, 5000 iterations,  1703µs per iteration
 TopDown            (Stratego/J):   2597ms, 5000 iterations,   519µs per iteration
 BottomUp           (Stratego/J):   2607ms, 5000 iterations,   521µs per iteration
 DownUp             (Stratego/J):   2795ms, 5000 iterations,   559µs per iteration
