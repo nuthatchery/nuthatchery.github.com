@@ -33,16 +33,26 @@ layout: default
 </div>
 {% unless page.sidebar == false %}
 <aside class="sidebar">
-  {{ extra_sidebar }}
   {% if page.extra_sidebar %}
     {{ page.extra_sidebar }}
-  {% else %}
-    Bar
   {% endif %}
-  {% if site.page_asides.size %}
-    {% include_array page_asides %}
-  {% else %}
-    {% include_array default_asides %}
-  {% endif %}
+  {% case page.asides %}
+    {% when 'sle13' %}
+      {% include_array sle13_asides %}
+    {% when 'icmt13' %}
+      {% include_array icmt13_asides %}
+    {% when 'pgf' %}
+      {% include_array pgf_asides %}
+    {% when 'pica' %}
+      {% include_array pica_asides %}
+    {% else %}
+      {% if site.page_asides.size %}
+        {% include_array page_asides %}
+      {% else %}
+        {% if site.default_asides.size %} 
+          {% include_array default_asides %}
+        {% endif %}
+      {% endif %}
+  {% endcase %}
 </aside>
 {% endunless %}
