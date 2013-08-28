@@ -1,0 +1,55 @@
+---
+layout: default
+paginate: 3
+---
+<div class="blog-index">
+<article>
+  <h1>Tree-Walking with Nuthatch</h1>
+  <img class="basic-alignment right" src="images/tree-walking-150x.png" width="150" height="210" />
+  
+  <p>
+  Nuthatch is a system of traversing, collecting information from, and
+  rewriting trees, based on the idea of <em>tree walking</em>. The main
+  application is software analysis and transformation. We provide a
+  library, Nuthatch/J, for doing tree walking in Java, with adapters for
+  interfacing with popular software transformation tools
+  like <a href="http://strategoxt.org/">Stratego/XT</a>
+  and <a href="http://www.rascal-mpl.org/">Rascal</a>.
+  </p>
+
+  <p>
+	Transformations are described as <em>walks</em> that proceed in
+	programmer-defined steps. Each step may which may observe join points
+	of a traversal, and affect state associated with the walk and also
+	rewrite the walked tree. Each step ends by walking to a different node
+	in the tree, following the tree branches.
+  <p>
+
+  <p>
+	Nuthatch is described in the upcoming
+	paper <a href="http://softlang.uni-koblenz.de/nuthatch/"><em>Walk Your
+	Tree Any Way You Want</em></a>.
+  </p>
+</article>
+
+  {% assign index = true %}
+  {% for post in paginator.posts %}
+  {% assign content = post.content %}
+    <article>
+      {% include article.html %}
+    </article>
+  {% endfor %}
+  <div class="pagination">
+    {% if paginator.next_page %}
+      <a class="prev" href="{{paginator.next_page}}">&larr; Older</a>
+    {% endif %}
+  </div>
+</div>
+
+<aside class="sidebar">
+  {% if site.main_asides.size %}
+    {% include_array main_asides %}
+  {% else %}
+    {% include_array default_asides %}
+  {% endif %}
+</aside>

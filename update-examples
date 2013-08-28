@@ -1,0 +1,6 @@
+#! /bin/sh
+
+cd ~/git/nuthatchery.github.com
+
+rsync -av ../nuthatch/src/nuthatch/examples/ source/downloads/code/examples/
+rsync -av ../nuthatch-javafront/src/nuthatch/demo/javafront/ source/downloads/code/icmt13/
