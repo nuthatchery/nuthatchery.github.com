@@ -1,0 +1,223 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Nuthatch</title>
+  <meta name="author" content="The Nuthatchery">
+
+  
+  <meta name="description" content="This simple example shows how to a walk a tree and convert it to a term
+representation (such as +(5, *(+(7, 3), 4)), for example). ">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://nuthatchery.org/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Nuthatch" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><img class="himg" src="/images/nuthatch-100px.png" height="100px" />
+<hgroup>
+  <h1><a href="/">Nuthatch</a></h1>
+  
+    <h2>Tree-Walking for Peeps</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:nuthatchery.org" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Home</a></li>
+  <li><a href="/examples/">Examples</a></li>
+  <li><a href="/icmt13/">ICMT13</a></li>
+  <li><a href="/doc/">Documentation</a></li>
+  <li><a href="https://github.com/nuthatchery">Source</a></li>
+  <!-- li><a href="/blog/">Blog</a></li -->
+  <!-- li><a href="/blog/archives/">Archives</a></li -->
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+<article>
+  <h1>Tree-Walking with Nuthatch</h1>
+  <img class="basic-alignment right" src="images/tree-walking-150x.png" width="150" height="210" />
+  
+  <p>
+  Nuthatch is a system of traversing, collecting information from, and
+  rewriting trees, based on the idea of <em>tree walking</em>. The main
+  application is software analysis and transformation. We provide a
+  library, Nuthatch/J, for doing tree walking in Java, with adapters for
+  interfacing with popular software transformation tools
+  like <a href="http://strategoxt.org/">Stratego/XT</a>
+  and <a href="http://www.rascal-mpl.org/">Rascal</a>.
+  </p>
+
+  <p>
+	Transformations are described as <em>walks</em> that proceed in
+	programmer-defined steps. Each step may which may observe join points
+	of a traversal, and affect state associated with the walk and also
+	rewrite the walked tree. Each step ends by walking to a different node
+	in the tree, following the tree branches.
+  <p>
+
+  <p>
+	Nuthatch is described in the upcoming
+	paper <a href="http://softlang.uni-koblenz.de/nuthatch/"><em>Walk Your
+	Tree Any Way You Want</em></a>.
+  </p>
+</article>
+
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/02/14/example-tostring/">Example: ToString</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-02-14T00:00:00+01:00" pubdate data-updated="true">Feb 14<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>This simple example shows how to a walk a tree and convert it to a term
+representation (such as <code>+(5, *(+(7, 3), 4))</code>, for example).</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/02/14/example-tostring/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+  </div>
+</div>
+
+<aside class="sidebar">
+  
+    
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/nuthatchery">@nuthatchery</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'nuthatchery',
+            count: 10,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - The Nuthatchery -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span> -
+  <span class="credit">Nuthatch photo by <a href="http://commons.wikimedia.org/wiki/User:Mdf">Mdf</a> (CC-BY-SA-3.0)</span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
