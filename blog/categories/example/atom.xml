@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: example | Nuthatch]]></title>
-  <link href="http://nuthatchery.org/blog/categories/example/atom.xml" rel="self"/>
-  <link href="http://nuthatchery.org/"/>
-  <updated>2013-10-30T05:05:15+01:00</updated>
-  <id>http://nuthatchery.org/</id>
+  <link href="http://nuthatchery.github.com/blog/categories/example/atom.xml" rel="self"/>
+  <link href="http://nuthatchery.github.com/"/>
+  <updated>2013-10-30T05:10:06+01:00</updated>
+  <id>http://nuthatchery.github.com/</id>
   <author>
     <name><![CDATA[The Nuthatchery]]></name>
     
@@ -15,16 +15,16 @@
   
   <entry>
     <title type="html"><![CDATA[Example: ToString]]></title>
-    <link href="http://nuthatchery.org/blog/2013/02/14/example-tostring/"/>
+    <link href="http://nuthatchery.github.com/blog/2013/02/14/example-tostring/"/>
     <updated>2013-02-14T00:00:00+01:00</updated>
-    <id>http://nuthatchery.org/blog/2013/02/14/example-tostring</id>
+    <id>http://nuthatchery.github.com/blog/2013/02/14/example-tostring</id>
     <content type="html"><![CDATA[<p>This simple example shows how to a walk a tree and convert it to a term
 representation (such as <code>+(5, *(+(7, 3), 4))</code>, for example).</p>
 
 <!-- more -->
 
 
-<p><img class="basic-alignment right" src="http://nuthatchery.org/images/tree-walking-150x.png" width="150" height="210" /></p>
+<p><img class="basic-alignment right" src="http://nuthatchery.github.com/images/tree-walking-150x.png" width="150" height="210" /></p>
 
 <p>In the example, we carefully observe the position along the walk to
 correctly parenthesize and place commas where appropriate. For a leaf, we
