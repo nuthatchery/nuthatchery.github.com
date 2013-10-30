@@ -19,7 +19,7 @@ representation (such as +(5, *(+(7, 3), 4)), for example). ">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://nuthatchery.org/">
+  <link rel="canonical" href="http://nuthatchery.org/examples/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -70,40 +70,12 @@ representation (such as +(5, *(+(7, 3), 4)), for example). ">
   <div id="main">
     <div id="content">
       <div class="blog-index">
-<article>
-  <h1>Tree-Walking with Nuthatch</h1>
-  <img class="basic-alignment right" src="images/tree-walking-150x.png" width="150" height="210" />
-  
-  <p>
-  Nuthatch is a system of traversing, collecting information from, and
-  rewriting trees, based on the idea of <em>tree walking</em>. The main
-  application is software analysis and transformation. We provide a
-  library, Nuthatch/J, for doing tree walking in Java, with adapters for
-  interfacing with popular software transformation tools
-  like <a href="http://strategoxt.org/">Stratego/XT</a>
-  and <a href="http://www.rascal-mpl.org/">Rascal</a>.
-  </p>
-
-  <p>
-	Transformations are described as <em>walks</em> that proceed in
-	programmer-defined steps. Each step may which may observe join points
-	of a traversal, and affect state associated with the walk and also
-	rewrite the walked tree. Each step ends by walking to a different node
-	in the tree, following the tree branches.
-  <p>
-
-  <p>
-	Nuthatch is described in the upcoming
-	paper <a href="http://softlang.uni-koblenz.de/nuthatch/"><em>Walk Your
-	Tree Any Way You Want</em></a>.
-  </p>
-</article>
-
   
   
-  
-    <article>
+    
       
+      <article>
+        
   <header>
     
       <h1 class="entry-title"><a href="/blog/2013/02/14/example-tostring/">Example: ToString</a></h1>
@@ -141,16 +113,38 @@ representation (such as <code>+(5, *(+(7, 3), 4))</code>, for example).</p>
   
 
 
-    </article>
+       </article>
+    
   
   <div class="pagination">
     
+    <a href="/blog/archives">Blog Archives</a>
+    
   </div>
 </div>
-
 <aside class="sidebar">
   
+    <section>
+  <h1>About Nuthatch</h1>
+  <p>
+	Nuthatch is a software transformation based on the idea of tree
+	walking, where transformations are described as walks that proceed in
+	programmer-defined steps which may observe join points of a traversal,
+	may affect state associated with the walk, may rewrite the walked tree,
+	and must walk somewhere.
+  </p>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
     
+      <li class="post">
+        <a href="/blog/2013/02/14/example-tostring/">Example: ToString</a>
+      </li>
+    
+  </ul>
+</section>
+
 <section>
   <h1>GitHub Repos</h1>
   <ul id="gh_repos">

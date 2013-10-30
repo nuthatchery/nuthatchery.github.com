@@ -1,0 +1,380 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Nuthatch Performance Results (for ICMT13) - Nuthatch</title>
+  <meta name="author" content="The Nuthatchery">
+
+  
+  <meta name="description" content="Nuthatch Performance Results (for ICMT13) Apr 4th, 2013 Results as of April 8, 2013 Setup Nuthatch/J, git version from 2013-04-08: nuthatch, &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://nuthatchery.org/icmt13/benchmarks.html">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Nuthatch" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><img class="himg" src="/images/nuthatch-100px.png" height="100px" />
+<hgroup>
+  <h1><a href="/">Nuthatch</a></h1>
+  
+    <h2>Tree-Walking for Peeps</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:nuthatchery.org" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Home</a></li>
+  <li><a href="/examples/">Examples</a></li>
+  <li><a href="/icmt13/">ICMT13</a></li>
+  <li><a href="/doc/">Documentation</a></li>
+  <li><a href="https://github.com/nuthatchery">Source</a></li>
+  <!-- li><a href="/blog/">Blog</a></li -->
+  <!-- li><a href="/blog/archives/">Archives</a></li -->
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article role="article">
+  
+  <header>
+    <h1 class="entry-title">Nuthatch Performance Results (for ICMT13)</h1>
+    <p class="meta">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-04-04T14:34:00+02:00" pubdate data-updated="true">Apr 4<span>th</span>, 2013</time></p>
+  </header>
+  
+    <p><em>Results as of April 8, 2013</em></p>
+
+<h1>Setup</h1>
+
+<ul>
+<li><p>Nuthatch/J, git version from 2013-04-08: <a href="https://github.com/nuthatchery/nuthatch">nuthatch</a>, <a href="https://github.com/nuthatchery/nuthatch-stratego">nuthatch-stratego</a>, <a href="https://github.com/nuthatchery/nuthatch-javafront">nuthatch-javafront</a>, <a href="https://github.com/nuthatchery/nuthatch-benchmark">nuthatch-benchmark</a></p></li>
+<li><p>Stratego interpreter from <a href="http://strategoxt.org/Spoofax">Spoofax v1.1</a>.
+Stratego code is executed using the <em>hybrid intepreter</em>, where the
+standard libraries (including traversals like <code>topdown</code> and
+<code>bottomup</code>) have been compiled to Java, but the actual benchmark code
+is run in an intepreter</p></li>
+<li><p>Stratego-to-Java compiler from <a href="http://strategoxt.org/Spoofax">Spoofax
+v1.1</a>. The code is compiled to Java, and
+called from the benchmark runner.</p></li>
+<li><p>All the implementations (Nuthatch/J, Stratego, hand-written Java) use
+Stratego&#8217;s Java term implementation.</p></li>
+<li><p>Java 7 / OpenJDK 7u15:</p></li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>java version "1.7.0_15"
+</span><span class='line'>OpenJDK Runtime Environment (IcedTea7 2.3.7) (7u15-2.3.7-0ubuntu1~12.10.1)
+</span><span class='line'>OpenJDK 64-Bit Server VM (build 23.7-b01, mixed mode)</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>Hardware: AMD FX-8350 Eight-Core Processor with 32GB RAM. All tests run
+on a single core on an otherwise idle system, with <code>nice -10</code> and
+pinned to a single core.</li>
+</ul>
+
+
+<h1>Benchmarks</h1>
+
+<p>Our benchmarks are centered around simple traversal and rewriting. This
+should be enough to give a rough idea of performance, but should not be
+taken as a definitive claim that one tool is faster than another.</p>
+
+<p>Also, the reader should note that not attempt has been made yet to optimize
+Nuthatch/J, and that the Stratego results below are from a combination of
+compiled and interpreted code; fully compiled code would likely run faster.</p>
+
+<p>For the benchmarks that perform transformation or gather information, the
+results have been checked against the other implementations (e.g., the
+commute benchmark results in the same Stratego term for all three
+implementations).</p>
+
+<h3>Collect</h3>
+
+<p>Traverse the tree, collecting all strings in to a list.</p>
+
+<ul>
+<li><p><a href="https://github.com/nuthatchery/nuthatch-benchmark/blob/master/src/nuthatch/benchmark/nuthatch/Collect.java">Nuthatch
+implementation</a>
+(Basically, <code>walk(down(match(string(), ... result.add(walker.getData()); ...)))</code>)</p></li>
+<li><p>Stratego implementation: <code>collect-all(is-string, conc)</code></p></li>
+</ul>
+
+
+<h3>Commute</h3>
+
+<p>Traverse the tree, and flip the arguments on all two-argument method calls.</p>
+
+<ul>
+<li><a href="https://github.com/nuthatchery/nuthatch-benchmark/blob/master/src/nuthatch/benchmark/nuthatch/Commute.java">Nuthatch implementation</a></li>
+<li>Stratego implementation: <code>topdown(try(\Invoke(m,[x,y]) -&gt; Invoke(m,[y,x])\))</code> (or <code>bottomup</code> for the bottomup variant)</li>
+<li><a href="https://github.com/nuthatchery/nuthatch-benchmark/blob/master/src/nuthatch/benchmark/java/JavaCommute.java">Hand-written Java implementation</a></li>
+</ul>
+
+
+<h3>Bottomup Build</h3>
+
+<p>Do a bottomup traversal, replacing every node with the number 42.</p>
+
+<ul>
+<li><p><a href="https://github.com/nuthatchery/nuthatch-benchmark/blob/master/src/nuthatch/benchmark/nuthatch/BottomupBuild.java">Nuthatch implementation</a></p></li>
+<li><p>Stratego implementation: <code>bottomup(!42)</code></p></li>
+</ul>
+
+
+<h3>Identity Traversal</h3>
+
+<p>Traverse the entire tree, doing nothing.</p>
+
+<ul>
+<li><a href="https://github.com/nuthatchery/nuthatch-benchmark/blob/master/src/nuthatch/benchmark/nuthatch/Traverse.java">Nuthatch implementation</a></li>
+<li>Stratego implementation: <code>topdown(id)</code>, <code>bottomup(id)</code> <code>downup(id)</code></li>
+<li><a href="https://github.com/nuthatchery/nuthatch-benchmark/blob/master/src/nuthatch/benchmark/java/JavaTraverse.java">Hand-written Java implementation</a></li>
+</ul>
+
+
+<h1>Results</h1>
+
+<h3>Source File: <a href="https://github.com/nuthatchery/nuthatch-javafront/blob/master/src/nuthatch/javafront/JavaPatterns.java">JavaPatterns.java</a> (from Nuthatch/J+JavaFront)</h3>
+
+<p><em>Stratego/I</em> results are from the interpreter, <em>Stratego/J</em> results are from
+compiled Java code.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Collect
+</span><span class='line'>-------
+</span><span class='line'>Collect              (Nuthatch):  14977ms, 5000 iterations,  2995µs per iteration
+</span><span class='line'>Collect            (Stratego/I):  25053ms, 5000 iterations,  5011µs per iteration
+</span><span class='line'>Collect            (Stratego/J):  21164ms, 5000 iterations,  4233µs per iteration
+</span><span class='line'>
+</span><span class='line'>Commute
+</span><span class='line'>-------
+</span><span class='line'>Commute              (Nuthatch):  23147ms, 5000 iterations,  4629µs per iteration
+</span><span class='line'>Commute (Topdown)  (Stratego/I): 148870ms, 5000 iterations, 29774µs per iteration
+</span><span class='line'>Commute (Topdown)  (Stratego/J):   4430ms, 5000 iterations,   886µs per iteration
+</span><span class='line'>Commute                  (Java):   3999ms, 5000 iterations,   800µs per iteration
+</span><span class='line'>
+</span><span class='line'>Bottomup Build 42
+</span><span class='line'>-----------------
+</span><span class='line'>BottomupBuild        (Nuthatch):  28250ms, 5000 iterations,  5650µs per iteration
+</span><span class='line'>BottomupBuild      (Stratego/I):  15814ms, 5000 iterations,  3163µs per iteration
+</span><span class='line'>BottomupBuild      (Stratego/J):   5877ms, 5000 iterations,  1175µs per iteration
+</span><span class='line'>
+</span><span class='line'>Identity Traversals
+</span><span class='line'>-------------------
+</span><span class='line'>DefaultWalk          (Nuthatch):   7557ms, 5000 iterations,  1511µs per iteration
+</span><span class='line'>TopDown            (Stratego/I):   5086ms, 5000 iterations,  1017µs per iteration
+</span><span class='line'>BottomUp           (Stratego/I):   5626ms, 5000 iterations,  1125µs per iteration
+</span><span class='line'>DownUp             (Stratego/I):   8515ms, 5000 iterations,  1703µs per iteration
+</span><span class='line'>TopDown            (Stratego/J):   2597ms, 5000 iterations,   519µs per iteration
+</span><span class='line'>BottomUp           (Stratego/J):   2607ms, 5000 iterations,   521µs per iteration
+</span><span class='line'>DownUp             (Stratego/J):   2795ms, 5000 iterations,   559µs per iteration
+</span><span class='line'>Traverse                 (Java):   2398ms, 5000 iterations,   480µs per iteration</span></code></pre></td></tr></table></div></figure>
+
+
+<h1>Conclusions</h1>
+
+<ol>
+<li><p>Nuthatch/J&#8217;s default walk seems comparable speed-wise to Stratego&#8217;s
+<code>downup</code> traversal (not surprising, as they have similar
+power). Stratego&#8217;s one-way traversals (topdown and bottomup) are slightly
+faster.</p></li>
+<li><p>Rewriting is a lot slower in interpreted Stratego, but almost as fast as
+hand-written code in compiled Stratego.</p></li>
+<li><p>Cases where Nuthatch gather information into standard Java containers
+(<em>Collect</em>) run faster than even compiled Stratego code.</p></li>
+<li><p>Hand-written Java code seems to be 2–10 times faster than both interpred
+Stratego and Nuthatch/J. The code is also a lot more verbose, so
+hand-writing code is probably not feasible for larger transformations. But,
+of course, hand-written Java transformations would likely not be based on
+Stratego terms, as these are rather inconvenient to use from Java.</p></li>
+</ol>
+
+
+<h1>Running the Benchmarks Yourself</h1>
+
+<p>The recipe below assumes you&#8217;re using Eclipse.</p>
+
+<ol>
+<li><p>Get the <a href="https://github.com/nuthatchery/nuthatch-benchmark">Benchmark
+Project</a> from GitHub.</p></li>
+<li><p>Get <a href="https://github.com/nuthatchery/nuthatch">Nuthatch/J</a>,
+<a href="https://github.com/nuthatchery/nuthatch-stratego">Nuthatch/J+Stratego</a> and
+<a href="https://github.com/nuthatchery/nuthatch-javafront">Nuthatch/J+JavaFront</a>
+from GitHub, or install them from the <a href="http://updates.nuthatchery.org/">Nuthatch Eclipse update
+site</a>.</p></li>
+<li><p>To run the Stratego code, either install <a href="http://strategoxt.org/Spoofax">Spoofax</a>
+in your Eclipse, or install the Stratego Interpreter feature from the
+<a href="http://updates.nuthatchery.org/">Nuthatch Eclipse update site</a>.</p></li>
+<li><p>Run ‘nuthatch.benchmark.BenchmarkRunner’, with the current directory set
+to either ‘src’ or ‘bin’.</p></li>
+</ol>
+
+
+
+
+  
+    <footer>
+      <p class="meta">
+        
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-04-04T14:34:00+02:00" pubdate data-updated="true">Apr 4<span>th</span>, 2013</time>
+        
+      </p>
+      
+        <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://nuthatchery.org/icmt13/benchmarks.html" data-via="" data-counturl="http://nuthatchery.org/icmt13/benchmarks.html" >Tweet</a>
+  
+  
+  
+</div>
+
+      
+    </footer>
+  
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section> <h1>Nuthatch@ICMT13</h1> <ul> <li><a href="/icmt13/">Overview</a></li> <li>Examples <ul> <li>– <a href="/icmt13/examples/class2table.html">Class2Table</a></li> <li>– <a href="/icmt13/examples/simplify.html">Simplify</a></li> <li>– <a href="/icmt13/examples/tostring.html">ToString</a></li> </ul> </li> <li><a href="/icmt13/benchmarks.html">Benchmarks</a></li> </ul> </section>
+  
+  
+      <section>
+  <h1>About Nuthatch</h1>
+  <p>
+	Nuthatch is a software transformation based on the idea of tree
+	walking, where transformations are described as walks that proceed in
+	programmer-defined steps which may observe join points of a traversal,
+	may affect state associated with the walk, may rewrite the walked tree,
+	and must walk somewhere.
+  </p>
+</section>
+
+    
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - The Nuthatchery -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span> -
+  <span class="credit">Nuthatch photo by <a href="http://commons.wikimedia.org/wiki/User:Mdf">Mdf</a> (CC-BY-SA-3.0)</span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

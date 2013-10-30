@@ -1,0 +1,629 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Example: Classes To Tables - Nuthatch</title>
+  <meta name="author" content="The Nuthatchery">
+
+  
+  <meta name="description" content="Example: Classes To Tables Apr 4th, 2013 Convert a tree to its term representation (Class2Table.java) download 1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://nuthatchery.org/icmt13/examples/class2table.html">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Nuthatch" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><img class="himg" src="/images/nuthatch-100px.png" height="100px" />
+<hgroup>
+  <h1><a href="/">Nuthatch</a></h1>
+  
+    <h2>Tree-Walking for Peeps</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:nuthatchery.org" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Home</a></li>
+  <li><a href="/examples/">Examples</a></li>
+  <li><a href="/icmt13/">ICMT13</a></li>
+  <li><a href="/doc/">Documentation</a></li>
+  <li><a href="https://github.com/nuthatchery">Source</a></li>
+  <!-- li><a href="/blog/">Blog</a></li -->
+  <!-- li><a href="/blog/archives/">Archives</a></li -->
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article role="article">
+  
+  <header>
+    <h1 class="entry-title">Example: Classes To Tables</h1>
+    <p class="meta">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-04-04T18:38:00+02:00" pubdate data-updated="true">Apr 4<span>th</span>, 2013</time></p>
+  </header>
+  
+    <!-- more -->
+
+
+
+
+<figure class='code'><figcaption><span>Convert a tree to its term representation (Class2Table.java)</span> <a href='/downloads/code/icmt13/Class2Table.java'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+<span class='line-number'>87</span>
+<span class='line-number'>88</span>
+<span class='line-number'>89</span>
+<span class='line-number'>90</span>
+<span class='line-number'>91</span>
+<span class='line-number'>92</span>
+<span class='line-number'>93</span>
+<span class='line-number'>94</span>
+<span class='line-number'>95</span>
+<span class='line-number'>96</span>
+<span class='line-number'>97</span>
+<span class='line-number'>98</span>
+<span class='line-number'>99</span>
+<span class='line-number'>100</span>
+<span class='line-number'>101</span>
+<span class='line-number'>102</span>
+<span class='line-number'>103</span>
+<span class='line-number'>104</span>
+<span class='line-number'>105</span>
+<span class='line-number'>106</span>
+<span class='line-number'>107</span>
+<span class='line-number'>108</span>
+<span class='line-number'>109</span>
+<span class='line-number'>110</span>
+<span class='line-number'>111</span>
+<span class='line-number'>112</span>
+<span class='line-number'>113</span>
+<span class='line-number'>114</span>
+<span class='line-number'>115</span>
+<span class='line-number'>116</span>
+<span class='line-number'>117</span>
+<span class='line-number'>118</span>
+<span class='line-number'>119</span>
+<span class='line-number'>120</span>
+<span class='line-number'>121</span>
+<span class='line-number'>122</span>
+<span class='line-number'>123</span>
+<span class='line-number'>124</span>
+<span class='line-number'>125</span>
+<span class='line-number'>126</span>
+<span class='line-number'>127</span>
+<span class='line-number'>128</span>
+<span class='line-number'>129</span>
+<span class='line-number'>130</span>
+<span class='line-number'>131</span>
+<span class='line-number'>132</span>
+<span class='line-number'>133</span>
+<span class='line-number'>134</span>
+<span class='line-number'>135</span>
+<span class='line-number'>136</span>
+<span class='line-number'>137</span>
+<span class='line-number'>138</span>
+<span class='line-number'>139</span>
+<span class='line-number'>140</span>
+<span class='line-number'>141</span>
+<span class='line-number'>142</span>
+<span class='line-number'>143</span>
+<span class='line-number'>144</span>
+<span class='line-number'>145</span>
+<span class='line-number'>146</span>
+<span class='line-number'>147</span>
+<span class='line-number'>148</span>
+<span class='line-number'>149</span>
+<span class='line-number'>150</span>
+<span class='line-number'>151</span>
+<span class='line-number'>152</span>
+<span class='line-number'>153</span>
+<span class='line-number'>154</span>
+<span class='line-number'>155</span>
+<span class='line-number'>156</span>
+<span class='line-number'>157</span>
+<span class='line-number'>158</span>
+<span class='line-number'>159</span>
+<span class='line-number'>160</span>
+<span class='line-number'>161</span>
+<span class='line-number'>162</span>
+<span class='line-number'>163</span>
+<span class='line-number'>164</span>
+<span class='line-number'>165</span>
+<span class='line-number'>166</span>
+<span class='line-number'>167</span>
+<span class='line-number'>168</span>
+<span class='line-number'>169</span>
+<span class='line-number'>170</span>
+<span class='line-number'>171</span>
+<span class='line-number'>172</span>
+<span class='line-number'>173</span>
+<span class='line-number'>174</span>
+<span class='line-number'>175</span>
+<span class='line-number'>176</span>
+<span class='line-number'>177</span>
+<span class='line-number'>178</span>
+<span class='line-number'>179</span>
+<span class='line-number'>180</span>
+<span class='line-number'>181</span>
+<span class='line-number'>182</span>
+<span class='line-number'>183</span>
+<span class='line-number'>184</span>
+<span class='line-number'>185</span>
+<span class='line-number'>186</span>
+<span class='line-number'>187</span>
+<span class='line-number'>188</span>
+<span class='line-number'>189</span>
+<span class='line-number'>190</span>
+<span class='line-number'>191</span>
+<span class='line-number'>192</span>
+<span class='line-number'>193</span>
+<span class='line-number'>194</span>
+<span class='line-number'>195</span>
+<span class='line-number'>196</span>
+<span class='line-number'>197</span>
+<span class='line-number'>198</span>
+<span class='line-number'>199</span>
+<span class='line-number'>200</span>
+<span class='line-number'>201</span>
+<span class='line-number'>202</span>
+<span class='line-number'>203</span>
+<span class='line-number'>204</span>
+<span class='line-number'>205</span>
+<span class='line-number'>206</span>
+<span class='line-number'>207</span>
+<span class='line-number'>208</span>
+<span class='line-number'>209</span>
+<span class='line-number'>210</span>
+<span class='line-number'>211</span>
+<span class='line-number'>212</span>
+<span class='line-number'>213</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kn">package</span> <span class="n">nuthatch</span><span class="o">.</span><span class="na">demo</span><span class="o">.</span><span class="na">class2table</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kn">import</span> <span class="nn">static</span> <span class="n">nuthatch</span><span class="o">.</span><span class="na">javafront</span><span class="o">.</span><span class="na">JavaPatterns</span><span class="o">.</span><span class="na">Boolean</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">static</span> <span class="n">nuthatch</span><span class="o">.</span><span class="na">javafront</span><span class="o">.</span><span class="na">JavaPatterns</span><span class="o">.</span><span class="na">Byte</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">static</span> <span class="n">nuthatch</span><span class="o">.</span><span class="na">javafront</span><span class="o">.</span><span class="na">JavaPatterns</span><span class="o">.</span><span class="na">Char</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">static</span> <span class="n">nuthatch</span><span class="o">.</span><span class="na">javafront</span><span class="o">.</span><span class="na">JavaPatterns</span><span class="o">.</span><span class="na">ClassBody</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">static</span> <span class="n">nuthatch</span><span class="o">.</span><span class="na">javafront</span><span class="o">.</span><span class="na">JavaPatterns</span><span class="o">.</span><span class="na">ClassDec</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">static</span> <span class="n">nuthatch</span><span class="o">.</span><span class="na">javafront</span><span class="o">.</span><span class="na">JavaPatterns</span><span class="o">.</span><span class="na">ClassDecHead</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">static</span> <span class="n">nuthatch</span><span class="o">.</span><span class="na">javafront</span><span class="o">.</span><span class="na">JavaPatterns</span><span class="o">.</span><span class="na">ClassOrInterfaceType</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">static</span> <span class="n">nuthatch</span><span class="o">.</span><span class="na">javafront</span><span class="o">.</span><span class="na">JavaPatterns</span><span class="o">.</span><span class="na">Double</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">static</span> <span class="n">nuthatch</span><span class="o">.</span><span class="na">javafront</span><span class="o">.</span><span class="na">JavaPatterns</span><span class="o">.</span><span class="na">FieldDec</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">static</span> <span class="n">nuthatch</span><span class="o">.</span><span class="na">javafront</span><span class="o">.</span><span class="na">JavaPatterns</span><span class="o">.</span><span class="na">Float</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">static</span> <span class="n">nuthatch</span><span class="o">.</span><span class="na">javafront</span><span class="o">.</span><span class="na">JavaPatterns</span><span class="o">.</span><span class="na">Id</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">static</span> <span class="n">nuthatch</span><span class="o">.</span><span class="na">javafront</span><span class="o">.</span><span class="na">JavaPatterns</span><span class="o">.</span><span class="na">Int</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">static</span> <span class="n">nuthatch</span><span class="o">.</span><span class="na">javafront</span><span class="o">.</span><span class="na">JavaPatterns</span><span class="o">.</span><span class="na">Long</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">static</span> <span class="n">nuthatch</span><span class="o">.</span><span class="na">javafront</span><span class="o">.</span><span class="na">JavaPatterns</span><span class="o">.</span><span class="na">None</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">static</span> <span class="n">nuthatch</span><span class="o">.</span><span class="na">javafront</span><span class="o">.</span><span class="na">JavaPatterns</span><span class="o">.</span><span class="na">TypeName</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">static</span> <span class="n">nuthatch</span><span class="o">.</span><span class="na">javafront</span><span class="o">.</span><span class="na">JavaPatterns</span><span class="o">.</span><span class="na">VarDec</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">static</span> <span class="n">nuthatch</span><span class="o">.</span><span class="na">pattern</span><span class="o">.</span><span class="na">StaticPatternFactory</span><span class="o">.</span><span class="na">or</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">static</span> <span class="n">nuthatch</span><span class="o">.</span><span class="na">stratego</span><span class="o">.</span><span class="na">pattern</span><span class="o">.</span><span class="na">StaticTermPatternFactory</span><span class="o">.</span><span class="na">_</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">static</span> <span class="n">nuthatch</span><span class="o">.</span><span class="na">stratego</span><span class="o">.</span><span class="na">pattern</span><span class="o">.</span><span class="na">StaticTermPatternFactory</span><span class="o">.</span><span class="na">list</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">static</span> <span class="n">nuthatch</span><span class="o">.</span><span class="na">stratego</span><span class="o">.</span><span class="na">pattern</span><span class="o">.</span><span class="na">StaticTermPatternFactory</span><span class="o">.</span><span class="na">string</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">static</span> <span class="n">nuthatch</span><span class="o">.</span><span class="na">stratego</span><span class="o">.</span><span class="na">pattern</span><span class="o">.</span><span class="na">StaticTermPatternFactory</span><span class="o">.</span><span class="na">var</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">java.util.ArrayList</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">java.util.Collection</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">java.util.List</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kn">import</span> <span class="nn">nuthatch.javafront.JavaAdapter</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">nuthatch.javafront.JavaParser</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">nuthatch.library.walks.Action</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">nuthatch.pattern.Environment</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">nuthatch.pattern.EnvironmentFactory</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">nuthatch.pattern.Pattern</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">nuthatch.stratego.actions.ActionFactory</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">nuthatch.stratego.actions.ActionFactory.MatchSwitchBuilder</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">nuthatch.stratego.actions.MatchedTermAction</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">nuthatch.stratego.adapter.TermCursor</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">nuthatch.stratego.adapter.TermWalk</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">nuthatch.walk.Step</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kn">import</span> <span class="nn">org.spoofax.interpreter.terms.IStrategoTerm</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">org.spoofax.jsglr.client.InvalidParseTableException</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">org.spoofax.jsglr.shared.SGLRException</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="cm">/**</span>
+</span><span class='line'><span class="cm"> * This example transforms Java classes to SQL tables.</span>
+</span><span class='line'><span class="cm"> * </span>
+</span><span class='line'><span class="cm"> */</span>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Class2Table</span> <span class="o">{</span>
+</span><span class='line'>  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">SGLRException</span><span class="o">,</span> <span class="n">IOException</span><span class="o">,</span> <span class="n">InvalidParseTableException</span> <span class="o">{</span>
+</span><span class='line'>      <span class="n">JavaParser</span><span class="o">.</span><span class="na">init</span><span class="o">();</span>
+</span><span class='line'>      <span class="n">TermCursor</span> <span class="n">term</span> <span class="o">=</span> <span class="n">JavaParser</span><span class="o">.</span><span class="na">parseStream</span><span class="o">(</span><span class="n">Class2Table</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getResourceAsStream</span><span class="o">(</span><span class="s">&quot;examples/Example.java.ex&quot;</span><span class="o">),</span> <span class="s">&quot;Example.java&quot;</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="n">Collection</span><span class="o">&lt;</span><span class="n">Table</span><span class="o">&gt;</span> <span class="n">tables</span> <span class="o">=</span> <span class="n">transform</span><span class="o">(</span><span class="n">term</span><span class="o">);</span>
+</span><span class='line'>      <span class="k">for</span><span class="o">(</span><span class="n">Table</span> <span class="n">t</span> <span class="o">:</span> <span class="n">tables</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>          <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">t</span><span class="o">.</span><span class="na">toSQL</span><span class="o">());</span>
+</span><span class='line'>      <span class="o">}</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>  <span class="cm">/**</span>
+</span><span class='line'><span class="cm">  * This is the main class2table transformation.</span>
+</span><span class='line'><span class="cm">  * </span>
+</span><span class='line'><span class="cm">  * @return A collection of tables</span>
+</span><span class='line'><span class="cm">  */</span>
+</span><span class='line'>  <span class="kd">public</span> <span class="kd">static</span> <span class="n">Collection</span><span class="o">&lt;</span><span class="n">Table</span><span class="o">&gt;</span> <span class="nf">transform</span><span class="o">(</span><span class="n">TermCursor</span> <span class="n">javaTree</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>      <span class="c1">// we&#39;ll accumulate the result here</span>
+</span><span class='line'>      <span class="kd">final</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Table</span><span class="o">&gt;</span> <span class="n">tables</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">Table</span><span class="o">&gt;();</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="c1">// we&#39;ll do a default walk of the entire tree, doing classDecAction on every step </span>
+</span><span class='line'>      <span class="n">Step</span><span class="o">&lt;</span><span class="n">TermWalk</span><span class="o">&gt;</span> <span class="n">step</span> <span class="o">=</span> <span class="n">ActionFactory</span><span class="o">.</span><span class="na">defaultStep</span><span class="o">(</span><span class="n">classDecAction</span><span class="o">(</span><span class="n">tables</span><span class="o">));</span>
+</span><span class='line'>      <span class="n">TermWalk</span> <span class="n">walk</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TermWalk</span><span class="o">(</span><span class="n">javaTree</span><span class="o">,</span> <span class="n">step</span><span class="o">);</span>
+</span><span class='line'>      <span class="n">walk</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="k">return</span> <span class="n">tables</span><span class="o">;</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>  <span class="cm">/**</span>
+</span><span class='line'><span class="cm">  * Make an action that will recognize class declaration and transform them</span>
+</span><span class='line'><span class="cm">  * to tables</span>
+</span><span class='line'><span class="cm">  * </span>
+</span><span class='line'><span class="cm">  * @param tables</span>
+</span><span class='line'><span class="cm">  *            The list where the result will be accumulated when the action</span>
+</span><span class='line'><span class="cm">  *            is performed</span>
+</span><span class='line'><span class="cm">  * @return an action</span>
+</span><span class='line'><span class="cm">  */</span>
+</span><span class='line'>  <span class="kd">private</span> <span class="kd">static</span> <span class="n">Action</span><span class="o">&lt;</span><span class="n">TermWalk</span><span class="o">&gt;</span> <span class="nf">classDecAction</span><span class="o">(</span><span class="kd">final</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Table</span><span class="o">&gt;</span> <span class="n">tables</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>      <span class="c1">// The pattern for class declarations</span>
+</span><span class='line'>      <span class="n">Pattern</span><span class="o">&lt;</span><span class="n">IStrategoTerm</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;</span> <span class="n">classDecPat</span> <span class="o">=</span> <span class="n">ClassDec</span><span class="o">(</span><span class="n">ClassDecHead</span><span class="o">(</span><span class="n">var</span><span class="o">(</span><span class="s">&quot;modifiers&quot;</span><span class="o">),</span> <span class="n">var</span><span class="o">(</span><span class="s">&quot;name&quot;</span><span class="o">),</span> <span class="n">_</span><span class="o">,</span> <span class="n">var</span><span class="o">(</span><span class="s">&quot;extends&quot;</span><span class="o">),</span> <span class="n">var</span><span class="o">(</span><span class="s">&quot;implements&quot;</span><span class="o">)),</span> <span class="n">ClassBody</span><span class="o">(</span><span class="n">var</span><span class="o">(</span><span class="s">&quot;body&quot;</span><span class="o">)));</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="c1">// we construct an action which will be executed</span>
+</span><span class='line'>      <span class="c1">//  - if we&#39;re on the way down (ifDown)</span>
+</span><span class='line'>      <span class="c1">//  - if the current node matches the pattern (ifMatches)</span>
+</span><span class='line'>      <span class="n">Action</span><span class="o">&lt;</span><span class="n">TermWalk</span><span class="o">&gt;</span> <span class="n">action</span> <span class="o">=</span> <span class="n">ActionFactory</span><span class="o">.</span><span class="na">ifDown</span><span class="o">(</span><span class="n">ActionFactory</span><span class="o">.</span><span class="na">ifMatches</span><span class="o">(</span><span class="n">classDecPat</span><span class="o">,</span> <span class="k">new</span> <span class="n">MatchedTermAction</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>          <span class="nd">@Override</span>
+</span><span class='line'>          <span class="kd">public</span> <span class="kt">int</span> <span class="nf">action</span><span class="o">(</span><span class="n">TermWalk</span> <span class="n">walk</span><span class="o">,</span> <span class="n">Environment</span><span class="o">&lt;</span><span class="n">TermCursor</span><span class="o">&gt;</span> <span class="n">env</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>              <span class="n">String</span> <span class="n">tableName</span> <span class="o">=</span> <span class="n">JavaAdapter</span><span class="o">.</span><span class="na">nameToStr</span><span class="o">(</span><span class="n">env</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&quot;name&quot;</span><span class="o">));</span> <span class="c1">// get the name as a string</span>
+</span><span class='line'>              <span class="kd">final</span> <span class="n">Table</span> <span class="n">table</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Table</span><span class="o">(</span><span class="n">tableName</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>              <span class="c1">// this subwalk will visit all the field declarations in this class declaration</span>
+</span><span class='line'>              <span class="n">walk</span><span class="o">.</span><span class="na">walkSubtree</span><span class="o">(</span><span class="n">ActionFactory</span><span class="o">.</span><span class="na">defaultStep</span><span class="o">(</span><span class="n">fieldDecAction</span><span class="o">(</span><span class="n">table</span><span class="o">)));</span>
+</span><span class='line'>
+</span><span class='line'>              <span class="n">tables</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">table</span><span class="o">);</span>
+</span><span class='line'>              <span class="k">return</span> <span class="n">PROCEED</span><span class="o">;</span>
+</span><span class='line'>          <span class="o">}</span>
+</span><span class='line'>      <span class="o">}));</span>
+</span><span class='line'>      <span class="k">return</span> <span class="n">action</span><span class="o">;</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>  <span class="cm">/**</span>
+</span><span class='line'><span class="cm">  * Make an action that will recognize field declarations and turn them into</span>
+</span><span class='line'><span class="cm">  * columns</span>
+</span><span class='line'><span class="cm">  * </span>
+</span><span class='line'><span class="cm">  * @param table</span>
+</span><span class='line'><span class="cm">  *            The Table the columns should be added to</span>
+</span><span class='line'><span class="cm">  * @return an action</span>
+</span><span class='line'><span class="cm">  */</span>
+</span><span class='line'>  <span class="kd">private</span> <span class="kd">static</span> <span class="n">Action</span><span class="o">&lt;</span><span class="n">TermWalk</span><span class="o">&gt;</span> <span class="nf">fieldDecAction</span><span class="o">(</span><span class="kd">final</span> <span class="n">Table</span> <span class="n">table</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>      <span class="c1">// we use this builder to build up what is basically a pattern-match switch statement</span>
+</span><span class='line'>      <span class="n">MatchSwitchBuilder</span> <span class="n">builder</span> <span class="o">=</span> <span class="n">ActionFactory</span><span class="o">.</span><span class="na">matchSwitchBuilder</span><span class="o">();</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="c1">// the pattern for field declarations, with and without initialisers</span>
+</span><span class='line'>      <span class="c1">// Note: declaring multiple fields in the same declaration is allowed in Java,</span>
+</span><span class='line'>      <span class="c1">// but not supported here</span>
+</span><span class='line'>      <span class="n">Pattern</span><span class="o">&lt;</span><span class="n">IStrategoTerm</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;</span> <span class="n">fieldDecNoInit</span> <span class="o">=</span> <span class="n">FieldDec</span><span class="o">(</span><span class="n">_</span><span class="o">,</span> <span class="n">var</span><span class="o">(</span><span class="s">&quot;type&quot;</span><span class="o">),</span> <span class="n">list</span><span class="o">(</span><span class="n">VarDec</span><span class="o">(</span><span class="n">var</span><span class="o">(</span><span class="s">&quot;name&quot;</span><span class="o">))));</span>
+</span><span class='line'>      <span class="n">Pattern</span><span class="o">&lt;</span><span class="n">IStrategoTerm</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;</span> <span class="n">fieldDecWithInit</span> <span class="o">=</span> <span class="n">FieldDec</span><span class="o">(</span><span class="n">_</span><span class="o">,</span> <span class="n">var</span><span class="o">(</span><span class="s">&quot;type&quot;</span><span class="o">),</span> <span class="n">list</span><span class="o">(</span><span class="n">VarDec</span><span class="o">(</span><span class="n">var</span><span class="o">(</span><span class="s">&quot;name&quot;</span><span class="o">),</span> <span class="n">_</span><span class="o">)));</span>
+</span><span class='line'>      <span class="n">Pattern</span><span class="o">&lt;</span><span class="n">IStrategoTerm</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;</span> <span class="n">fieldDecPat</span> <span class="o">=</span> <span class="n">or</span><span class="o">(</span><span class="n">fieldDecNoInit</span><span class="o">,</span> <span class="n">fieldDecWithInit</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="c1">// if fieldDecPat matches, we&#39;ll do this action</span>
+</span><span class='line'>      <span class="n">builder</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">fieldDecPat</span><span class="o">,</span> <span class="k">new</span> <span class="n">MatchedTermAction</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>          <span class="c1">// walk refers to the current walk, with context information on the current node</span>
+</span><span class='line'>          <span class="c1">// env will contain the variables we matched in the pattern</span>
+</span><span class='line'>          <span class="nd">@Override</span>
+</span><span class='line'>          <span class="kd">public</span> <span class="kt">int</span> <span class="nf">action</span><span class="o">(</span><span class="n">TermWalk</span> <span class="n">walk</span><span class="o">,</span> <span class="n">Environment</span><span class="o">&lt;</span><span class="n">TermCursor</span><span class="o">&gt;</span> <span class="n">env</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>              <span class="c1">// Obtain the type name. Second element of the pair will be the foreign key if this field is</span>
+</span><span class='line'>              <span class="c1">// a reference to another object.</span>
+</span><span class='line'>              <span class="n">ColumnType</span> <span class="n">type</span> <span class="o">=</span> <span class="n">transformTypeName</span><span class="o">(</span><span class="n">env</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&quot;type&quot;</span><span class="o">));</span>
+</span><span class='line'>              <span class="n">String</span> <span class="n">fieldName</span> <span class="o">=</span> <span class="n">JavaAdapter</span><span class="o">.</span><span class="na">nameToStr</span><span class="o">(</span><span class="n">env</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&quot;name&quot;</span><span class="o">));</span>
+</span><span class='line'>              <span class="n">table</span><span class="o">.</span><span class="na">addColumn</span><span class="o">(</span><span class="k">new</span> <span class="n">Column</span><span class="o">(</span><span class="n">fieldName</span><span class="o">,</span> <span class="n">type</span><span class="o">.</span><span class="na">typeName</span><span class="o">,</span> <span class="n">type</span><span class="o">.</span><span class="na">foreignKey</span><span class="o">));</span>
+</span><span class='line'>              <span class="k">return</span> <span class="n">Action</span><span class="o">.</span><span class="na">PROCEED</span><span class="o">;</span>
+</span><span class='line'>          <span class="o">}</span>
+</span><span class='line'>      <span class="o">});</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="c1">// if we hit a class declaration, we should stop, so we don&#39;t get the fields of inner classes</span>
+</span><span class='line'>      <span class="n">builder</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">ClassDec</span><span class="o">(</span><span class="n">_</span><span class="o">,</span> <span class="n">_</span><span class="o">),</span> <span class="k">new</span> <span class="n">MatchedTermAction</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>          <span class="nd">@Override</span>
+</span><span class='line'>          <span class="kd">public</span> <span class="kt">int</span> <span class="nf">action</span><span class="o">(</span><span class="n">TermWalk</span> <span class="n">walk</span><span class="o">,</span> <span class="n">Environment</span><span class="o">&lt;</span><span class="n">TermCursor</span><span class="o">&gt;</span> <span class="n">env</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>              <span class="k">return</span> <span class="n">Step</span><span class="o">.</span><span class="na">PARENT</span><span class="o">;</span>
+</span><span class='line'>          <span class="o">}</span>
+</span><span class='line'>      <span class="o">});</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="c1">// we&#39;ll do the action only on the way down the tree</span>
+</span><span class='line'>      <span class="k">return</span> <span class="n">ActionFactory</span><span class="o">.</span><span class="na">ifDown</span><span class="o">(</span><span class="n">builder</span><span class="o">.</span><span class="na">done</span><span class="o">());</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>  <span class="kd">private</span> <span class="kd">static</span> <span class="n">ColumnType</span> <span class="nf">transformTypeName</span><span class="o">(</span><span class="n">TermCursor</span> <span class="n">c</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>      <span class="n">Environment</span><span class="o">&lt;</span><span class="n">TermCursor</span><span class="o">&gt;</span> <span class="n">env</span> <span class="o">=</span> <span class="n">EnvironmentFactory</span><span class="o">.</span><span class="na">env</span><span class="o">();</span>
+</span><span class='line'>      <span class="n">String</span> <span class="n">type</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+</span><span class='line'>      <span class="n">String</span> <span class="n">foreignKey</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="c1">// primitive types</span>
+</span><span class='line'>      <span class="k">if</span><span class="o">(</span><span class="n">Int</span><span class="o">().</span><span class="na">match</span><span class="o">(</span><span class="n">c</span><span class="o">,</span> <span class="n">env</span><span class="o">))</span> <span class="o">{</span>
+</span><span class='line'>          <span class="n">type</span> <span class="o">=</span> <span class="s">&quot;INT&quot;</span><span class="o">;</span>
+</span><span class='line'>      <span class="o">}</span>
+</span><span class='line'>      <span class="k">else</span> <span class="nf">if</span><span class="o">(</span><span class="n">Double</span><span class="o">().</span><span class="na">match</span><span class="o">(</span><span class="n">c</span><span class="o">,</span> <span class="n">env</span><span class="o">))</span> <span class="o">{</span>
+</span><span class='line'>          <span class="n">type</span> <span class="o">=</span> <span class="s">&quot;DOUBLE&quot;</span><span class="o">;</span>
+</span><span class='line'>      <span class="o">}</span>
+</span><span class='line'>      <span class="k">else</span> <span class="nf">if</span><span class="o">(</span><span class="n">Float</span><span class="o">().</span><span class="na">match</span><span class="o">(</span><span class="n">c</span><span class="o">,</span> <span class="n">env</span><span class="o">))</span> <span class="o">{</span>
+</span><span class='line'>          <span class="n">type</span> <span class="o">=</span> <span class="s">&quot;FLOAT&quot;</span><span class="o">;</span>
+</span><span class='line'>      <span class="o">}</span>
+</span><span class='line'>      <span class="k">else</span> <span class="nf">if</span><span class="o">(</span><span class="n">Long</span><span class="o">().</span><span class="na">match</span><span class="o">(</span><span class="n">c</span><span class="o">,</span> <span class="n">env</span><span class="o">))</span> <span class="o">{</span>
+</span><span class='line'>          <span class="n">type</span> <span class="o">=</span> <span class="s">&quot;BIGINT&quot;</span><span class="o">;</span>
+</span><span class='line'>      <span class="o">}</span>
+</span><span class='line'>      <span class="k">else</span> <span class="nf">if</span><span class="o">(</span><span class="n">Boolean</span><span class="o">().</span><span class="na">match</span><span class="o">(</span><span class="n">c</span><span class="o">,</span> <span class="n">env</span><span class="o">))</span> <span class="o">{</span>
+</span><span class='line'>          <span class="n">type</span> <span class="o">=</span> <span class="s">&quot;BOOLEAN&quot;</span><span class="o">;</span>
+</span><span class='line'>      <span class="o">}</span>
+</span><span class='line'>      <span class="k">else</span> <span class="nf">if</span><span class="o">(</span><span class="n">Char</span><span class="o">().</span><span class="na">match</span><span class="o">(</span><span class="n">c</span><span class="o">,</span> <span class="n">env</span><span class="o">))</span> <span class="o">{</span>
+</span><span class='line'>          <span class="n">type</span> <span class="o">=</span> <span class="s">&quot;CHAR(1)&quot;</span><span class="o">;</span>
+</span><span class='line'>      <span class="o">}</span>
+</span><span class='line'>      <span class="k">else</span> <span class="nf">if</span><span class="o">(</span><span class="n">Byte</span><span class="o">().</span><span class="na">match</span><span class="o">(</span><span class="n">c</span><span class="o">,</span> <span class="n">env</span><span class="o">))</span> <span class="o">{</span>
+</span><span class='line'>          <span class="n">type</span> <span class="o">=</span> <span class="s">&quot;TINYINT&quot;</span><span class="o">;</span>
+</span><span class='line'>      <span class="o">}</span>
+</span><span class='line'>      <span class="c1">// this one is an object in Java, but primitive in SQL</span>
+</span><span class='line'>      <span class="k">else</span> <span class="nf">if</span><span class="o">(</span><span class="n">ClassOrInterfaceType</span><span class="o">(</span><span class="n">TypeName</span><span class="o">(</span><span class="n">Id</span><span class="o">(</span><span class="n">string</span><span class="o">(</span><span class="s">&quot;String&quot;</span><span class="o">))),</span> <span class="n">None</span><span class="o">()).</span><span class="na">match</span><span class="o">(</span><span class="n">c</span><span class="o">,</span> <span class="n">env</span><span class="o">))</span> <span class="o">{</span>
+</span><span class='line'>          <span class="n">type</span> <span class="o">=</span> <span class="s">&quot;VARCHAR(MAX)&quot;</span><span class="o">;</span>
+</span><span class='line'>      <span class="o">}</span>
+</span><span class='line'>      <span class="c1">// object references are translated to ID references in another table</span>
+</span><span class='line'>      <span class="k">else</span> <span class="nf">if</span><span class="o">(</span><span class="n">ClassOrInterfaceType</span><span class="o">(</span><span class="n">TypeName</span><span class="o">(</span><span class="n">var</span><span class="o">(</span><span class="s">&quot;name&quot;</span><span class="o">)),</span> <span class="n">None</span><span class="o">()).</span><span class="na">match</span><span class="o">(</span><span class="n">c</span><span class="o">,</span> <span class="n">env</span><span class="o">))</span> <span class="o">{</span>
+</span><span class='line'>          <span class="n">type</span> <span class="o">=</span> <span class="s">&quot;INT&quot;</span><span class="o">;</span>
+</span><span class='line'>          <span class="n">foreignKey</span> <span class="o">=</span> <span class="n">JavaAdapter</span><span class="o">.</span><span class="na">nameToStr</span><span class="o">(</span><span class="n">env</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&quot;name&quot;</span><span class="o">));</span>
+</span><span class='line'>      <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="c1">// whoops!</span>
+</span><span class='line'>      <span class="k">return</span> <span class="k">new</span> <span class="nf">ColumnType</span><span class="o">(</span><span class="n">type</span><span class="o">,</span> <span class="n">foreignKey</span><span class="o">);</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>  <span class="kd">static</span> <span class="kd">class</span> <span class="nc">ColumnType</span> <span class="o">{</span>
+</span><span class='line'>      <span class="n">String</span> <span class="n">typeName</span><span class="o">;</span>
+</span><span class='line'>      <span class="n">String</span> <span class="n">foreignKey</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>      <span class="n">ColumnType</span><span class="o">(</span><span class="n">String</span> <span class="n">typeName</span><span class="o">,</span> <span class="n">String</span> <span class="n">foreignKey</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>          <span class="k">this</span><span class="o">.</span><span class="na">typeName</span> <span class="o">=</span> <span class="n">typeName</span><span class="o">;</span>
+</span><span class='line'>          <span class="k">this</span><span class="o">.</span><span class="na">foreignKey</span> <span class="o">=</span> <span class="n">foreignKey</span><span class="o">;</span>
+</span><span class='line'>      <span class="o">}</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+  
+    <footer>
+      <p class="meta">
+        
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-04-04T18:38:00+02:00" pubdate data-updated="true">Apr 4<span>th</span>, 2013</time>
+        
+      </p>
+      
+        <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://nuthatchery.org/icmt13/examples/class2table.html" data-via="" data-counturl="http://nuthatchery.org/icmt13/examples/class2table.html" >Tweet</a>
+  
+  
+  
+</div>
+
+      
+    </footer>
+  
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section> <h1>Nuthatch@ICMT13</h1> <ul> <li><a href="/icmt13/">Overview</a></li> <li>Examples <ul> <li>– <a href="/icmt13/examples/class2table.html">Class2Table</a></li> <li>– <a href="/icmt13/examples/simplify.html">Simplify</a></li> <li>– <a href="/icmt13/examples/tostring.html">ToString</a></li> </ul> </li> <li><a href="/icmt13/benchmarks.html">Benchmarks</a></li> </ul> </section>
+  
+  
+      <section>
+  <h1>About Nuthatch</h1>
+  <p>
+	Nuthatch is a software transformation based on the idea of tree
+	walking, where transformations are described as walks that proceed in
+	programmer-defined steps which may observe join points of a traversal,
+	may affect state associated with the walk, may rewrite the walked tree,
+	and must walk somewhere.
+  </p>
+</section>
+
+    
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - The Nuthatchery -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span> -
+  <span class="credit">Nuthatch photo by <a href="http://commons.wikimedia.org/wiki/User:Mdf">Mdf</a> (CC-BY-SA-3.0)</span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
