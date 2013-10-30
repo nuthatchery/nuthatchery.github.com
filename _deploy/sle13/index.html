@@ -78,16 +78,37 @@ Conference on &hellip;">
   </header>
   
     <p>This page collects examples and extra resources for the <a href="http://planet-sl.org/sle2013/">SLE (International
-Conference on Software Language Engineering)</a> paper <em><a href="">A Pretty Good Formatting Pipeline</a></em>.</p>
+Conference on Software Language
+Engineering)</a> paper <em>A Pretty Good Formatting
+Pipeline</em>.</p>
+
+<h2>Paper</h2>
+
+<p>Anya Helene Bagge and Tero Hasu. <a href="/downloads/papers/bagge-hasu-pgf-sle2013.pdf">A Pretty Good Formatting
+Pipeline</a>. In <em>6th
+International Conferance on Software Language Engineering (SLE’13)</em>, volume
+8225 of LNCS, pages 177-196. Springer, October 2013. [<a href="/downloads/papers/bagge-hasu-pgf-sle2013.pdf">pdf</a>,
+<a href="/downloads/papers/bagge-hasu-pgf-sle2013-slides.pdf">slides</a>]</p>
+
+<p><em>Abstract.</em> Proper formatting makes the structure of a program apparent and
+aids program comprehension. The need to format code arises in code
+generation and transformation, as well as in normal reading and editing
+situations. Commonly used pretty-printing tools in transformation
+frameworks provide an easy way to produce indented code that is fairly
+readable for humans, without reaching the level of purpose-built
+reformatting tools, such as those built into IDEs. This paper presents a
+library of pluggable components, built to support style-based formatting
+and reformatting of code, and to enable further experimentation with code
+formatting.</p>
+
+<p>The final publication is available on
+<a href="http://link.springer.com/chapter/10.1007/978-3-319-02654-1_10">link.springer.com</a>.</p>
+
+<h2>Examples</h2>
 
 <ul>
-<li>Examples
-
-<ul>
-<li><a href="/sle13/examples/spacer.html">Spacer</a></li>
-<li><a href="/sle13/examples/indenter.html">Indenter</a></li>
-</ul>
-</li>
+<li> <a href="/sle13/examples/spacer.html">Spacer</a></li>
+<li> <a href="/sle13/examples/indenter.html">Indenter</a></li>
 </ul>
 
 
@@ -114,13 +135,18 @@ Conference on Software Language Engineering)</a> paper <em><a href="">A Pretty G
 
 <aside class="sidebar">
   
-    <section> <h1>Nuthatch@ICMT13</h1> <ul> <li><a href="/icmt13/">Overview</a></li> <li>Examples <ul> <li>– <a href="/icmt13/examples/class2table.html">Class2Table</a></li> <li>– <a href="/icmt13/examples/simplify.html">Simplify</a></li> <li>– <a href="/icmt13/examples/tostring.html">ToString</a></li> </ul> </li> <li><a href="/icmt13/benchmarks.html">Benchmarks</a></li> </ul> </section>
+    <section> <h1>PGF@SLE13</h1> <ul> <li><a href="/sle13/">Overview</a></li> <li>Examples <ul> <li>– <a href="/sle13/examples/spacer.html">Spacer</a></li> </ul> </li> </ul> </section>
   
   
       <section>
   <h1>About PGF</h1>
   <p>
+	<a href="/sle13/">PGF</a> is a code formatting framework based on
+	pluggable token processors.  Code formatting concerns are separated out
+	into multiple components, e.g., for dealing with horizontal space,
+	vertical space, line breaking, and so on.
   </p>
+  <p>Source code is <a href="https://github.com/nuthatchery/pgf">available on GitHub</a>.
 </section>
 
     
