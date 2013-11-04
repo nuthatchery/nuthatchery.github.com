@@ -1,67 +1,67 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
-        <loc>http://nuthatchery.github.com/blog/2013/02/14/example-tostring/</loc>
+        <loc>http://nuthatchery.org/blog/2013/02/14/example-tostring/</loc>
         <lastmod>2013-04-07T13:21:10+02:00</lastmod>
     </url>
     <url>
-        <loc>http://nuthatchery.github.com/doc/</loc>
+        <loc>http://nuthatchery.org/doc/</loc>
         <lastmod>2013-08-17T23:05:17+02:00</lastmod>
     </url>
     <url>
-        <loc>http://nuthatchery.github.com/examples/</loc>
+        <loc>http://nuthatchery.org/examples/</loc>
         <lastmod>2013-04-07T13:21:10+02:00</lastmod>
     </url>
     <url>
-        <loc>http://nuthatchery.github.com/robots.txt</loc>
+        <loc>http://nuthatchery.org/robots.txt</loc>
         <lastmod>2013-04-07T13:21:10+02:00</lastmod>
     </url>
     <url>
-        <loc>http://nuthatchery.github.com/pgf/</loc>
+        <loc>http://nuthatchery.org/pgf/</loc>
         <lastmod>2013-08-17T22:36:54+02:00</lastmod>
     </url>
     <url>
-        <loc>http://nuthatchery.github.com/blog/archives/</loc>
+        <loc>http://nuthatchery.org/blog/archives/</loc>
         <lastmod>2013-08-17T23:05:17+02:00</lastmod>
     </url>
     <url>
-        <loc>http://nuthatchery.github.com/blog/</loc>
+        <loc>http://nuthatchery.org/blog/</loc>
         <lastmod>2013-04-07T13:21:10+02:00</lastmod>
     </url>
     <url>
-        <loc>http://nuthatchery.github.com/</loc>
+        <loc>http://nuthatchery.org/</loc>
         <lastmod>2013-04-07T13:21:10+02:00</lastmod>
     </url>
     <url>
-        <loc>http://nuthatchery.github.com/icmt13/examples/tostring.html</loc>
+        <loc>http://nuthatchery.org/icmt13/examples/tostring.html</loc>
         <lastmod>2013-08-17T23:06:54+02:00</lastmod>
     </url>
     <url>
-        <loc>http://nuthatchery.github.com/icmt13/examples/simplify.html</loc>
+        <loc>http://nuthatchery.org/icmt13/examples/simplify.html</loc>
         <lastmod>2013-08-17T23:05:17+02:00</lastmod>
     </url>
     <url>
-        <loc>http://nuthatchery.github.com/icmt13/examples/</loc>
+        <loc>http://nuthatchery.org/icmt13/examples/</loc>
         <lastmod>2013-08-17T23:05:17+02:00</lastmod>
     </url>
     <url>
-        <loc>http://nuthatchery.github.com/icmt13/examples/class2table.html</loc>
+        <loc>http://nuthatchery.org/icmt13/examples/class2table.html</loc>
         <lastmod>2013-08-17T23:06:54+02:00</lastmod>
     </url>
     <url>
-        <loc>http://nuthatchery.github.com/icmt13/</loc>
+        <loc>http://nuthatchery.org/icmt13/</loc>
         <lastmod>2013-08-17T23:06:54+02:00</lastmod>
     </url>
     <url>
-        <loc>http://nuthatchery.github.com/icmt13/benchmarks.html</loc>
+        <loc>http://nuthatchery.org/icmt13/benchmarks.html</loc>
         <lastmod>2013-08-17T23:06:54+02:00</lastmod>
     </url>
     <url>
-        <loc>http://nuthatchery.github.com/sle13/examples/spacer.html</loc>
+        <loc>http://nuthatchery.org/sle13/examples/spacer.html</loc>
         <lastmod>2013-10-28T16:31:47+01:00</lastmod>
     </url>
     <url>
-        <loc>http://nuthatchery.github.com/sle13/</loc>
+        <loc>http://nuthatchery.org/sle13/</loc>
         <lastmod>2013-10-28T16:31:47+01:00</lastmod>
     </url>
 </urlset>
