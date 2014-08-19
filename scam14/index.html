@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Resources for “Walk Your Tree Any Way You Want” (ICMT'13) - Nuthatch</title>
+  <title>Resources for “Analysis and Transformation with the Nuthatch Tree-Walking Library” (SCAM'14) - Nuthatch</title>
   <meta name="author" content="The Nuthatchery">
 
   
-  <meta name="description" content="Resources for “Walk Your Tree Any Way You Want” (ICMT'13) Apr 4th, 2013 This page collects examples and extra resources for the ICMT (International &hellip;">
+  <meta name="description" content="Resources for “Analysis and Transformation with the Nuthatch Tree-Walking Library” (SCAM'14) Aug 19th, 2014 This page collects examples and extra &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://nuthatchery.org/icmt13/">
+  <link rel="canonical" href="http://nuthatchery.org/scam14/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -72,7 +72,7 @@
 <article role="article">
   
   <header>
-    <h1 class="entry-title">Resources for “Walk Your Tree Any Way You Want” (ICMT'13)</h1>
+    <h1 class="entry-title">Resources for “Analysis and Transformation with the Nuthatch Tree-Walking Library” (SCAM'14)</h1>
     <p class="meta">
 
 
@@ -85,28 +85,18 @@
   
 
 
-<time datetime="2013-04-04T14:34:00+02:00" pubdate data-updated="true">Apr 4<span>th</span>, 2013</time></p>
+<time datetime="2014-08-19T14:34:00+02:00" pubdate data-updated="true">Aug 19<span>th</span>, 2014</time></p>
   </header>
   
-    <p>This page collects examples and extra resources for the ICMT (International
-Conference on Model Transformation) paper <em><a href="http://softlang.uni-koblenz.de/nuthatch/">Walk Your Tree Any Way You
-Want</a></em>.</p>
-
-<p><em>Note: we may continue update and improve this page up until the time of
- the conference (June 18–19, 2013). After that, this page will be locked
- and the source code tagged, so that the resources remain consistent with
- the paper even though Nuthatch is developed further.</em></p>
+    <p>This page collects examples and extra resources for the SCAM (International Working Conference on Source Code Analysis and Manipulation) tool paper “International Working Conference on Source Code Analysis and Manipulation”</p>
 
 <ul>
 <li>Examples
 
 <ul>
-<li><a href="/icmt13/examples/class2table.html">Class2Table</a></li>
-<li><a href="/icmt13/examples/simplify.html">Simplify</a></li>
-<li><a href="/icmt13/examples/tostring.html">ToString</a></li>
+<li><a href="/scam14/examples/tostring.html">ToString</a></li>
 </ul>
 </li>
-<li><a href="/icmt13/benchmarks.html">Preliminary benchmark results</a></li>
 </ul>
 
 
@@ -128,13 +118,13 @@ Want</a></em>.</p>
   
 
 
-<time datetime="2013-04-04T14:34:00+02:00" pubdate data-updated="true">Apr 4<span>th</span>, 2013</time>
+<time datetime="2014-08-19T14:34:00+02:00" pubdate data-updated="true">Aug 19<span>th</span>, 2014</time>
         
       </p>
       
         <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://nuthatchery.org/icmt13/index.html" data-via="" data-counturl="http://nuthatchery.org/icmt13/index.html" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://nuthatchery.org/scam14/index.html" data-via="" data-counturl="http://nuthatchery.org/scam14/index.html" >Tweet</a>
   
   
   
@@ -149,10 +139,12 @@ Want</a></em>.</p>
 
 <aside class="sidebar">
   
-    <section> <h1>Nuthatch@ICMT13</h1> <ul> <li><a href="/icmt13/">Overview</a></li> <li>Examples <ul> <li>– <a href="/icmt13/examples/class2table.html">Class2Table</a></li> <li>– <a href="/icmt13/examples/simplify.html">Simplify</a></li> <li>– <a href="/icmt13/examples/tostring.html">ToString</a></li> </ul> </li> <li><a href="/icmt13/benchmarks.html">Benchmarks</a></li> </ul> </section>
+    <section> <h1>Nuthatch@SCAM14</h1> <ul> <li><a href="/scam14/">Overview</a></li> <li>Examples <ul> <li>– <a href="/scam14/examples/tostring.html">ToString</a></li> </ul> </li> </ul> </section>
   
   
-      <section>
+      
+         
+          <section>
   <h1>About Nuthatch</h1>
   <p>
 	Nuthatch is a software transformation based on the idea of tree
@@ -163,7 +155,43 @@ Want</a></em>.</p>
   </p>
 </section>
 
-    
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/nuthatchery">@nuthatchery</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'nuthatchery',
+            count: 10,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+
+        
+      
+  
 </aside>
 
 

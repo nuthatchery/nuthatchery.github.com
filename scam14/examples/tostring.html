@@ -9,8 +9,25 @@
   <meta name="author" content="The Nuthatchery">
 
   
-  <meta name="description" content="This simple example shows how to a walk a tree and convert it to a term
-representation (such as +(5, *(+(7, 3), 4)), for example). In the example, we &hellip;">
+  <meta name="description" content="Example: ToString Apr 4th, 2013 Convert a tree to its string representation (ToString.java) download 1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -19,7 +36,7 @@ representation (such as +(5, *(+(7, 3), 4)), for example). In the example, we &h
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://nuthatchery.org/blog/2013/02/14/example-tostring/">
+  <link rel="canonical" href="http://nuthatchery.org/scam14/examples/tostring.html">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -70,15 +87,11 @@ representation (such as +(5, *(+(7, 3), 4)), for example). In the example, we &h
   <div id="main">
     <div id="content">
       <div>
-<article class="hentry" role="article">
+<article role="article">
   
   <header>
-    
-      <h1 class="entry-title">Example: ToString</h1>
-    
-    
-      <p class="meta">
-        
+    <h1 class="entry-title">Example: ToString</h1>
+    <p class="meta">
 
 
 
@@ -90,35 +103,15 @@ representation (such as +(5, *(+(7, 3), 4)), for example). In the example, we &h
   
 
 
-<time datetime="2013-02-14T00:00:00+01:00" pubdate data-updated="true">Feb 14<span>th</span>, 2013</time>
-        
-      </p>
-    
+<time datetime="2013-04-04T18:38:00+02:00" pubdate data-updated="true">Apr 4<span>th</span>, 2013</time></p>
   </header>
+  
+    <!-- more -->
 
 
-<div class="entry-content"><p>This simple example shows how to a walk a tree and convert it to a term
-representation (such as <code>+(5, *(+(7, 3), 4))</code>, for example).</p>
-
-<!-- more -->
 
 
-<p><img class="basic-alignment right" src="/images/tree-walking-150x.png" width="150" height="210" /></p>
-
-<p>In the example, we carefully observe the position along the walk to
-correctly parenthesize and place commas where appropriate. For a leaf, we
-use its data value. If we enter a node from the parent, we use its
-constructor name and add open parenthesis. Whenever we come up from a
-child, we add a comma, except when we come up from the last child, where we
-add the closing parenthesis.</p>
-
-<p>The walk proceeds from node to node according to the <em>default walk</em>,
-shown to the right.</p>
-
-<p>The <code>SimpleWalker</code> carries with it a string <code>S</code> as state, which we may
-append to (<code>appendToS()</code>), observe (<code>getS()</code>) and set (<code>setS()</code>).</p>
-
-<figure class='code'><figcaption><span>Convert a tree to its term representation (ToString.java)</span> <a href='/downloads/code/examples/ToString.java'>download</a></figcaption>
+<figure class='code'><figcaption><span>Convert a tree to its string representation (ToString.java)</span> <a href='/downloads/code/icmt13/examples/ToString.java'>download</a></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -205,61 +198,50 @@ append to (<code>appendToS()</code>), observe (<code>getS()</code>) and set (<co
 </span><span class='line'><span class="o">}</span>
 </span></code></pre></td></tr></table></div></figure>
 
-</div>
 
 
-  <footer>
-    <p class="meta">
+
+  
+    <footer>
+      <p class="meta">
+        
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-04-04T18:38:00+02:00" pubdate data-updated="true">Apr 4<span>th</span>, 2013</time>
+        
+      </p>
       
+        <div class="sharing">
   
-
-<span class="byline author vcard">Posted by <span class="fn">Anya Helene Bagge</span></span>
-
-      
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-02-14T00:00:00+01:00" pubdate data-updated="true">Feb 14<span>th</span>, 2013</time>
-      
-
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/example/'>example</a>
-  
-</span>
-
-
-    </p>
-    
-      <div class="sharing">
-  
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://nuthatchery.org/blog/2013/02/14/example-tostring/" data-via="" data-counturl="http://nuthatchery.org/blog/2013/02/14/example-tostring/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://nuthatchery.org/scam14/examples/tostring.html" data-via="" data-counturl="http://nuthatchery.org/scam14/examples/tostring.html" >Tweet</a>
   
   
   
 </div>
 
-    
-    <p class="meta">
       
-      
-    </p>
-  </footer>
+    </footer>
+  
 </article>
 
 </div>
 
 <aside class="sidebar">
   
-    <section>
+    <section> <h1>Nuthatch@ICMT13</h1> <ul> <li><a href="/icmt13/">Overview</a></li> <li>Examples <ul> <li>– <a href="/icmt13/examples/class2table.html">Class2Table</a></li> <li>– <a href="/icmt13/examples/simplify.html">Simplify</a></li> <li>– <a href="/icmt13/examples/tostring.html">ToString</a></li> </ul> </li> <li><a href="/icmt13/benchmarks.html">Benchmarks</a></li> </ul> </section>
+  
+  
+      <section>
   <h1>About Nuthatch</h1>
   <p>
 	Nuthatch is a software transformation based on the idea of tree
@@ -269,52 +251,8 @@ append to (<code>appendToS()</code>), observe (<code>getS()</code>) and set (<co
 	and must walk somewhere.
   </p>
 </section>
-<section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
+
     
-      <li class="post">
-        <a href="/blog/2013/02/14/example-tostring/">Example: ToString</a>
-      </li>
-    
-  </ul>
-</section>
-
-<section>
-  <h1>GitHub Repos</h1>
-  <ul id="gh_repos">
-    <li class="loading">Status updating...</li>
-  </ul>
-  
-  <a href="https://github.com/nuthatchery">@nuthatchery</a> on GitHub
-  
-  <script type="text/javascript">
-    $.domReady(function(){
-        if (!window.jXHR){
-            var jxhr = document.createElement('script');
-            jxhr.type = 'text/javascript';
-            jxhr.src = '/javascripts/libs/jXHR.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(jxhr, s);
-        }
-
-        github.showRepos({
-            user: 'nuthatchery',
-            count: 10,
-            skip_forks: true,
-            target: '#gh_repos'
-        });
-    });
-  </script>
-  <script src="/javascripts/github.js" type="text/javascript"> </script>
-</section>
-
-
-
-
-
-
-  
 </aside>
 
 
