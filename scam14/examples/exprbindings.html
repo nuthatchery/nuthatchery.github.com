@@ -1,0 +1,323 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Example: ExprBindings - Nuthatch</title>
+  <meta name="author" content="The Nuthatchery">
+
+  
+  <meta name="description" content="Example: ExprBindings Aug 19th, 2014 Display the bindings of variables using ancestor matching. (ExprBindings.java) download 1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://nuthatchery.org/scam14/examples/exprbindings.html">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Nuthatch" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><img class="himg" src="/images/nuthatch-100px.png" height="100px" />
+<hgroup>
+  <h1><a href="/">Nuthatch</a></h1>
+  
+    <h2>Tree-Walking for Peeps</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:nuthatchery.org" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Home</a></li>
+  <li><a href="/examples/">Examples</a></li>
+  <li><a href="/icmt13/">ICMT13</a></li>
+  <li><a href="/doc/">Documentation</a></li>
+  <li><a href="https://github.com/nuthatchery">Source</a></li>
+  <!-- li><a href="/blog/">Blog</a></li -->
+  <!-- li><a href="/blog/archives/">Archives</a></li -->
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article role="article">
+  
+  <header>
+    <h1 class="entry-title">Example: ExprBindings</h1>
+    <p class="meta">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-19T18:38:00+02:00" pubdate data-updated="true">Aug 19<span>th</span>, 2014</time></p>
+  </header>
+  
+    <!-- more -->
+
+
+
+
+<figure class='code'><figcaption><span>Display the bindings of variables using ancestor matching. (ExprBindings.java)</span> <a href='/downloads/code/scam14/examples/ExprBindings.java'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kn">package</span> <span class="n">nuthatch</span><span class="o">.</span><span class="na">examples</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kn">import</span> <span class="nn">static</span> <span class="n">nuthatch</span><span class="o">.</span><span class="na">examples</span><span class="o">.</span><span class="na">exprlang</span><span class="o">.</span><span class="na">ExprPatterns</span><span class="o">.*;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">nuthatch.examples.exprlang.Expr</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">nuthatch.examples.exprlang.ExprActionFactory</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">nuthatch.examples.exprlang.ExprCursor</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">nuthatch.examples.exprlang.ExprWalker</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">nuthatch.examples.exprlang.Type</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">nuthatch.library.Action</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">nuthatch.library.BaseMatchAction</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">nuthatch.library.MatchBuilder</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">nuthatch.pattern.Environment</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ExprBindings</span> <span class="o">{</span>
+</span><span class='line'>  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>      <span class="c1">// Walk which outputs the tree in a term-like representation. The result are accumulated in the</span>
+</span><span class='line'>      <span class="c1">// stringbuffer &#39;s&#39;.</span>
+</span><span class='line'>      <span class="n">ExprActionFactory</span> <span class="n">af</span> <span class="o">=</span> <span class="n">ExprActionFactory</span><span class="o">.</span><span class="na">getInstance</span><span class="o">();</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="n">MatchBuilder</span><span class="o">&lt;</span><span class="n">Expr</span><span class="o">,</span> <span class="n">Type</span><span class="o">,</span> <span class="n">ExprCursor</span><span class="o">,</span> <span class="n">ExprWalker</span><span class="o">&gt;</span> <span class="n">mb</span> <span class="o">=</span> <span class="n">af</span><span class="o">.</span><span class="na">matchBuilder</span><span class="o">();</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="n">mb</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">and</span><span class="o">(</span><span class="n">var</span><span class="o">(</span><span class="s">&quot;x&quot;</span><span class="o">,</span> <span class="n">type</span><span class="o">(</span><span class="n">Type</span><span class="o">.</span><span class="na">VAR</span><span class="o">)),</span> <span class="n">ancestor</span><span class="o">(</span><span class="n">Let</span><span class="o">(</span><span class="n">var</span><span class="o">(</span><span class="s">&quot;x&quot;</span><span class="o">),</span> <span class="n">var</span><span class="o">(</span><span class="s">&quot;e&quot;</span><span class="o">),</span> <span class="n">_</span><span class="o">))),</span> <span class="k">new</span> <span class="n">BaseMatchAction</span><span class="o">&lt;</span><span class="n">Expr</span><span class="o">,</span> <span class="n">Type</span><span class="o">,</span> <span class="n">ExprCursor</span><span class="o">,</span> <span class="n">ExprWalker</span><span class="o">&gt;()</span> <span class="o">{</span>
+</span><span class='line'>          <span class="nd">@Override</span>
+</span><span class='line'>          <span class="kd">public</span> <span class="kt">int</span> <span class="nf">step</span><span class="o">(</span><span class="n">ExprWalker</span> <span class="n">walker</span><span class="o">,</span> <span class="n">Environment</span><span class="o">&lt;</span><span class="n">ExprCursor</span><span class="o">&gt;</span> <span class="n">env</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>              <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;var &quot;</span> <span class="o">+</span> <span class="n">env</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&quot;x&quot;</span><span class="o">).</span><span class="na">treeToString</span><span class="o">()</span> <span class="o">+</span> <span class="s">&quot; = &quot;</span> <span class="o">+</span> <span class="n">ExprToString</span><span class="o">.</span><span class="na">exprToString</span><span class="o">(</span><span class="n">env</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&quot;e&quot;</span><span class="o">).</span><span class="na">getData</span><span class="o">()));</span>
+</span><span class='line'>              <span class="k">return</span> <span class="n">PROCEED</span><span class="o">;</span>
+</span><span class='line'>          <span class="o">}</span>
+</span><span class='line'>      <span class="o">});</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="c1">// if we come down into a Let, go to the second child</span>
+</span><span class='line'>      <span class="n">mb</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">Let</span><span class="o">(</span><span class="n">_</span><span class="o">,</span> <span class="n">_</span><span class="o">,</span> <span class="n">_</span><span class="o">),</span> <span class="n">af</span><span class="o">.</span><span class="na">action</span><span class="o">(</span><span class="n">af</span><span class="o">.</span><span class="na">down</span><span class="o">(</span><span class="n">af</span><span class="o">.</span><span class="na">go</span><span class="o">(</span><span class="mi">2</span><span class="o">))));</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="n">Action</span><span class="o">&lt;</span><span class="n">ExprWalker</span><span class="o">&gt;</span> <span class="n">showBindings</span> <span class="o">=</span> <span class="n">mb</span><span class="o">.</span><span class="na">all</span><span class="o">();</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="k">for</span><span class="o">(</span><span class="n">Expr</span> <span class="n">e</span> <span class="o">:</span> <span class="k">new</span> <span class="n">Expr</span><span class="o">[]</span> <span class="o">{</span> <span class="n">ExampleExpr</span><span class="o">.</span><span class="na">expr1</span><span class="o">,</span> <span class="n">ExampleExpr</span><span class="o">.</span><span class="na">expr2</span><span class="o">,</span> <span class="n">ExampleExpr</span><span class="o">.</span><span class="na">expr3</span><span class="o">,</span> <span class="n">ExampleExpr</span><span class="o">.</span><span class="na">expr4</span><span class="o">,</span> <span class="n">ExampleExpr</span><span class="o">.</span><span class="na">expr5</span> <span class="o">})</span> <span class="o">{</span>
+</span><span class='line'>          <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">ExprToString</span><span class="o">.</span><span class="na">exprToString</span><span class="o">(</span><span class="n">e</span><span class="o">)</span> <span class="o">+</span> <span class="s">&quot;:&quot;</span><span class="o">);</span>
+</span><span class='line'>          <span class="n">ExprWalker</span> <span class="n">toTermWalker</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ExprWalker</span><span class="o">(</span><span class="n">e</span><span class="o">,</span> <span class="n">af</span><span class="o">.</span><span class="na">walk</span><span class="o">(</span><span class="n">showBindings</span><span class="o">));</span>
+</span><span class='line'>          <span class="c1">// run it</span>
+</span><span class='line'>          <span class="n">toTermWalker</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+</span><span class='line'>          <span class="c1">// print the contents of S</span>
+</span><span class='line'>      <span class="o">}</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+  
+    <footer>
+      <p class="meta">
+        
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-19T18:38:00+02:00" pubdate data-updated="true">Aug 19<span>th</span>, 2014</time>
+        
+      </p>
+      
+        <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://nuthatchery.org/scam14/examples/exprbindings.html" data-via="" data-counturl="http://nuthatchery.org/scam14/examples/exprbindings.html" >Tweet</a>
+  
+  
+  
+</div>
+
+      
+    </footer>
+  
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section> <h1>Nuthatch@SCAM14</h1> <ul> <li><a href="/scam14/">Overview</a></li> <li>Examples <ul> <li>– <a href="/scam14/examples/tostring.html">ToString</a></li> </ul> </li> </ul> </section>
+  
+  
+      
+         
+          <section>
+  <h1>About Nuthatch</h1>
+  <p>
+	Nuthatch is a software transformation based on the idea of tree
+	walking, where transformations are described as walks that proceed in
+	programmer-defined steps which may observe join points of a traversal,
+	may affect state associated with the walk, may rewrite the walked tree,
+	and must walk somewhere.
+  </p>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/nuthatchery">@nuthatchery</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'nuthatchery',
+            count: 10,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+
+        
+      
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - The Nuthatchery -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span> -
+  <span class="credit">Nuthatch photo by <a href="http://commons.wikimedia.org/wiki/User:Mdf">Mdf</a> (CC-BY-SA-3.0)</span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

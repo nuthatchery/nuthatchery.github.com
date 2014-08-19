@@ -9,25 +9,7 @@
   <meta name="author" content="The Nuthatchery">
 
   
-  <meta name="description" content="Example: ToString Apr 4th, 2013 Convert a tree to its string representation (ToString.java) download 1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19 &hellip;">
+  <meta name="description" content="Example: ToString Apr 4th, 2013 File /home/anya/git/nuthatchery.github.com/source/downloads/code/scam14/examples/ToString.java could not be found &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -109,95 +91,7 @@
     <!-- more -->
 
 
-
-
-<figure class='code'><figcaption><span>Convert a tree to its string representation (ToString.java)</span> <a href='/downloads/code/icmt13/examples/ToString.java'>download</a></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
-<span class='line-number'>42</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kn">package</span> <span class="n">nuthatch</span><span class="o">.</span><span class="na">examples</span><span class="o">;</span>
-</span><span class='line'>
-</span><span class='line'><span class="kn">import</span> <span class="nn">static</span> <span class="n">nuthatch</span><span class="o">.</span><span class="na">library</span><span class="o">.</span><span class="na">JoinPoints</span><span class="o">.</span><span class="na">down</span><span class="o">;</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">static</span> <span class="n">nuthatch</span><span class="o">.</span><span class="na">library</span><span class="o">.</span><span class="na">JoinPoints</span><span class="o">.</span><span class="na">leaf</span><span class="o">;</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">static</span> <span class="n">nuthatch</span><span class="o">.</span><span class="na">library</span><span class="o">.</span><span class="na">JoinPoints</span><span class="o">.</span><span class="na">up</span><span class="o">;</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">nuthatch.library.BaseWalk</span><span class="o">;</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">nuthatch.library.Walk</span><span class="o">;</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">nuthatch.walker.impl.SimpleWalker</span><span class="o">;</span>
-</span><span class='line'>
-</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ToString</span> <span class="o">{</span>
-</span><span class='line'>  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>      <span class="c1">// Walk which outputs the tree in a term-like representation. The result are accumulated in the</span>
-</span><span class='line'>      <span class="c1">// stringbuffer &#39;s&#39;.</span>
-</span><span class='line'>      <span class="kd">final</span> <span class="n">StringBuffer</span> <span class="n">s</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuffer</span><span class="o">();</span>
-</span><span class='line'>      <span class="n">Walk</span><span class="o">&lt;</span><span class="n">SimpleWalker</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;&gt;</span> <span class="n">toTerm</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BaseWalk</span><span class="o">&lt;</span><span class="n">SimpleWalker</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;&gt;()</span> <span class="o">{</span>
-</span><span class='line'>          <span class="nd">@Override</span>
-</span><span class='line'>          <span class="kd">public</span> <span class="kt">int</span> <span class="nf">step</span><span class="o">(</span><span class="n">SimpleWalker</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">w</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>              <span class="k">if</span><span class="o">(</span><span class="n">leaf</span><span class="o">(</span><span class="n">w</span><span class="o">))</span> <span class="o">{</span> <span class="c1">// we&#39;re at a leaf, print data value</span>
-</span><span class='line'>                  <span class="n">s</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">w</span><span class="o">.</span><span class="na">getData</span><span class="o">().</span><span class="na">toString</span><span class="o">());</span>
-</span><span class='line'>              <span class="o">}</span>
-</span><span class='line'>              <span class="k">else</span> <span class="nf">if</span><span class="o">(</span><span class="n">down</span><span class="o">(</span><span class="n">w</span><span class="o">))</span> <span class="o">{</span> <span class="c1">// first time we see this node, print constructor name</span>
-</span><span class='line'>                  <span class="n">s</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">w</span><span class="o">.</span><span class="na">getName</span><span class="o">()</span> <span class="o">+</span> <span class="s">&quot;(&quot;</span><span class="o">);</span>
-</span><span class='line'>              <span class="o">}</span>
-</span><span class='line'>              <span class="k">else</span> <span class="nf">if</span><span class="o">(</span><span class="n">up</span><span class="o">(</span><span class="n">w</span><span class="o">))</span> <span class="o">{</span> <span class="c1">// just finished with children, close parenthesis</span>
-</span><span class='line'>                  <span class="n">s</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">&quot;)&quot;</span><span class="o">);</span>
-</span><span class='line'>              <span class="o">}</span>
-</span><span class='line'>              <span class="k">else</span> <span class="o">{</span> <span class="c1">// coming up from a child (not the last), insert a comma</span>
-</span><span class='line'>                  <span class="n">s</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">&quot;, &quot;</span><span class="o">);</span>
-</span><span class='line'>              <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>              <span class="k">return</span> <span class="n">NEXT</span><span class="o">;</span>
-</span><span class='line'>          <span class="o">}</span>
-</span><span class='line'>      <span class="o">};</span>
-</span><span class='line'>
-</span><span class='line'>      <span class="c1">// instantiate walker with an example tree and the above step function</span>
-</span><span class='line'>      <span class="n">SimpleWalker</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">toTermWalker</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SimpleWalker</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;(</span><span class="n">ExampleTree</span><span class="o">.</span><span class="na">TREE</span><span class="o">.</span><span class="na">makeCursor</span><span class="o">(),</span> <span class="n">toTerm</span><span class="o">);</span>
-</span><span class='line'>      <span class="c1">// run it</span>
-</span><span class='line'>      <span class="n">toTermWalker</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
-</span><span class='line'>      <span class="c1">// print the contents of S</span>
-</span><span class='line'>      <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">s</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
-</span><span class='line'>  <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
+<p>File /home/anya/git/nuthatchery.github.com/source/downloads/code/scam14/examples/ToString.java could not be found</p>
 
 
 
