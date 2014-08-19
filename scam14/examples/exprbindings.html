@@ -9,17 +9,8 @@
   <meta name="author" content="The Nuthatchery">
 
   
-  <meta name="description" content="Example: ExprBindings Aug 19th, 2014 Display the bindings of variables using ancestor matching. (ExprBindings.java) download 1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11 &hellip;">
+  <meta name="description" content="Example: ExprBindings Aug 19th, 2014 This example shows Nuthatch/J applied to a small expression language with variables and
+let-expressions, and &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -98,7 +89,33 @@
 <time datetime="2014-08-19T18:38:00+02:00" pubdate data-updated="true">Aug 19<span>th</span>, 2014</time></p>
   </header>
   
-    <!-- more -->
+    <p>This example shows Nuthatch/J applied to a small expression language with variables and
+let-expressions, and uses ancestor matching to find variable bindings.</p>
+
+<p>Four different walks are included as examples:</p>
+
+<ol>
+<li>The first is a naive approach to matching a variable with its binding; it simply matches
+a variable, then tries to match a <code>Let</code> ancestor with the same variable name. This leads to
+confusion because the variable to be bound in the <code>Let</code> (the first child) will also be matched,
+and considered bound to itself.</li>
+<li>The problem of the <code>Let</code>-variable being matched is fixed in the second ‘lessNaive’ example,
+which adds an action to the walk that redirects it past the first child of a <code>Let</code>.</li>
+<li>The less naive example has another problem; occurences of the variable within the
+second child of a <code>Let</code> will be interpreted as being bound by the current <code>Let</code>. This is wrong
+(except in the case of recursive let constructs – we’ll assume that is not the case here).
+We can fix this using a trick of the tree walking model: to reach the ancestor, one has to
+go up the tree. When we reach the <code>Let</code>, the tree cursor still knows which branch it came in on.
+As the scope of a <code>Let</code> should only include its third child, we can restrict the match to
+cases where the <code>Let</code> was found via its third child (<code>from(3)</code>).</li>
+<li>Finally, the last example combines the previous one with a little bit of extra code to
+inline the variables rather than print them, and remove the <code>Let</code>s after the inlining is done.</li>
+</ol>
+
+
+<p>The full code of the example and expression language library is at <a href="https://github.com/nuthatchery/nuthatch/tree/8738a668b26f8e1e8f1a721e6b40d5f3ea3f0c97/src/nuthatch/examples">GitHub</a> (version as of the SCAM’14 paper).</p>
+
+<!-- more -->
 
 
 
@@ -147,6 +164,50 @@
 <span class='line-number'>41</span>
 <span class='line-number'>42</span>
 <span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+<span class='line-number'>87</span>
 </pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kn">package</span> <span class="n">nuthatch</span><span class="o">.</span><span class="na">examples</span><span class="o">;</span>
 </span><span class='line'>
 </span><span class='line'><span class="kn">import</span> <span class="nn">static</span> <span class="n">nuthatch</span><span class="o">.</span><span class="na">examples</span><span class="o">.</span><span class="na">exprlang</span><span class="o">.</span><span class="na">ExprPatterns</span><span class="o">.*;</span>
@@ -156,8 +217,8 @@
 </span><span class='line'><span class="kn">import</span> <span class="nn">nuthatch.examples.exprlang.ExprWalker</span><span class="o">;</span>
 </span><span class='line'><span class="kn">import</span> <span class="nn">nuthatch.examples.exprlang.Type</span><span class="o">;</span>
 </span><span class='line'><span class="kn">import</span> <span class="nn">nuthatch.library.Action</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">nuthatch.library.ActionBuilder</span><span class="o">;</span>
 </span><span class='line'><span class="kn">import</span> <span class="nn">nuthatch.library.BaseMatchAction</span><span class="o">;</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">nuthatch.library.MatchBuilder</span><span class="o">;</span>
 </span><span class='line'><span class="kn">import</span> <span class="nn">nuthatch.pattern.Environment</span><span class="o">;</span>
 </span><span class='line'>
 </span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ExprBindings</span> <span class="o">{</span>
@@ -165,30 +226,74 @@
 </span><span class='line'>      <span class="c1">// Walk which outputs the tree in a term-like representation. The result are accumulated in the</span>
 </span><span class='line'>      <span class="c1">// stringbuffer &#39;s&#39;.</span>
 </span><span class='line'>      <span class="n">ExprActionFactory</span> <span class="n">af</span> <span class="o">=</span> <span class="n">ExprActionFactory</span><span class="o">.</span><span class="na">getInstance</span><span class="o">();</span>
+</span><span class='line'>      <span class="n">BindingsPrinter</span> <span class="n">printBinding</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BindingsPrinter</span><span class="o">();</span> <span class="c1">// for more fun, try the BindingsReplacer</span>
 </span><span class='line'>
-</span><span class='line'>      <span class="n">MatchBuilder</span><span class="o">&lt;</span><span class="n">Expr</span><span class="o">,</span> <span class="n">Type</span><span class="o">,</span> <span class="n">ExprCursor</span><span class="o">,</span> <span class="n">ExprWalker</span><span class="o">&gt;</span> <span class="n">mb</span> <span class="o">=</span> <span class="n">af</span><span class="o">.</span><span class="na">matchBuilder</span><span class="o">();</span>
+</span><span class='line'>      <span class="c1">// Example 1: A walker that makes many mistakes</span>
+</span><span class='line'>      <span class="c1">// This will call printBinding whenever a Var(x) is found for which there is a Let(Var(x),_,_) ancestor.</span>
+</span><span class='line'>      <span class="n">Action</span><span class="o">&lt;</span><span class="n">ExprWalker</span><span class="o">&gt;</span> <span class="n">naive</span> <span class="o">=</span> <span class="n">af</span><span class="o">.</span><span class="na">match</span><span class="o">(</span><span class="n">and</span><span class="o">(</span><span class="n">Var</span><span class="o">(</span><span class="n">var</span><span class="o">(</span><span class="s">&quot;x&quot;</span><span class="o">)),</span> <span class="n">ancestor</span><span class="o">(</span><span class="n">Let</span><span class="o">(</span><span class="n">Var</span><span class="o">(</span><span class="n">var</span><span class="o">(</span><span class="s">&quot;x&quot;</span><span class="o">)),</span> <span class="n">var</span><span class="o">(</span><span class="s">&quot;e&quot;</span><span class="o">),</span> <span class="n">_</span><span class="o">))),</span> <span class="n">printBinding</span><span class="o">);</span>
 </span><span class='line'>
-</span><span class='line'>      <span class="n">mb</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">and</span><span class="o">(</span><span class="n">var</span><span class="o">(</span><span class="s">&quot;x&quot;</span><span class="o">,</span> <span class="n">type</span><span class="o">(</span><span class="n">Type</span><span class="o">.</span><span class="na">VAR</span><span class="o">)),</span> <span class="n">ancestor</span><span class="o">(</span><span class="n">Let</span><span class="o">(</span><span class="n">var</span><span class="o">(</span><span class="s">&quot;x&quot;</span><span class="o">),</span> <span class="n">var</span><span class="o">(</span><span class="s">&quot;e&quot;</span><span class="o">),</span> <span class="n">_</span><span class="o">))),</span> <span class="k">new</span> <span class="n">BaseMatchAction</span><span class="o">&lt;</span><span class="n">Expr</span><span class="o">,</span> <span class="n">Type</span><span class="o">,</span> <span class="n">ExprCursor</span><span class="o">,</span> <span class="n">ExprWalker</span><span class="o">&gt;()</span> <span class="o">{</span>
-</span><span class='line'>          <span class="nd">@Override</span>
-</span><span class='line'>          <span class="kd">public</span> <span class="kt">int</span> <span class="nf">step</span><span class="o">(</span><span class="n">ExprWalker</span> <span class="n">walker</span><span class="o">,</span> <span class="n">Environment</span><span class="o">&lt;</span><span class="n">ExprCursor</span><span class="o">&gt;</span> <span class="n">env</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>              <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;var &quot;</span> <span class="o">+</span> <span class="n">env</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&quot;x&quot;</span><span class="o">).</span><span class="na">treeToString</span><span class="o">()</span> <span class="o">+</span> <span class="s">&quot; = &quot;</span> <span class="o">+</span> <span class="n">ExprToString</span><span class="o">.</span><span class="na">exprToString</span><span class="o">(</span><span class="n">env</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&quot;e&quot;</span><span class="o">).</span><span class="na">getData</span><span class="o">()));</span>
-</span><span class='line'>              <span class="k">return</span> <span class="n">PROCEED</span><span class="o">;</span>
-</span><span class='line'>          <span class="o">}</span>
-</span><span class='line'>      <span class="o">});</span>
+</span><span class='line'>      <span class="c1">// Example 2: A walker that avoids the first child of a Let</span>
+</span><span class='line'>      <span class="n">ActionBuilder</span><span class="o">&lt;</span><span class="n">ExprWalker</span><span class="o">&gt;</span> <span class="n">sb1</span> <span class="o">=</span> <span class="n">af</span><span class="o">.</span><span class="na">sequenceBuilder</span><span class="o">();</span> <span class="c1">// make a sequence of actions</span>
+</span><span class='line'>      <span class="c1">// Call printBinding whenever a Var(x) is found for which there is a Let(Var(x),_,_) ancestor.</span>
+</span><span class='line'>      <span class="n">sb1</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">af</span><span class="o">.</span><span class="na">match</span><span class="o">(</span><span class="n">and</span><span class="o">(</span><span class="n">Var</span><span class="o">(</span><span class="n">var</span><span class="o">(</span><span class="s">&quot;x&quot;</span><span class="o">)),</span> <span class="n">ancestor</span><span class="o">(</span><span class="n">Let</span><span class="o">(</span><span class="n">Var</span><span class="o">(</span><span class="n">var</span><span class="o">(</span><span class="s">&quot;x&quot;</span><span class="o">)),</span> <span class="n">var</span><span class="o">(</span><span class="s">&quot;e&quot;</span><span class="o">),</span> <span class="n">_</span><span class="o">))),</span> <span class="n">printBinding</span><span class="o">));</span>
+</span><span class='line'>      <span class="c1">// if we come down into a Let, go to the second child, skipping the first</span>
+</span><span class='line'>      <span class="n">sb1</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">af</span><span class="o">.</span><span class="na">down</span><span class="o">(</span><span class="n">af</span><span class="o">.</span><span class="na">match</span><span class="o">(</span><span class="n">Let</span><span class="o">(</span><span class="n">_</span><span class="o">,</span> <span class="n">_</span><span class="o">,</span> <span class="n">_</span><span class="o">),</span> <span class="n">af</span><span class="o">.</span><span class="na">action</span><span class="o">(</span><span class="n">af</span><span class="o">.</span><span class="na">go</span><span class="o">(</span><span class="mi">2</span><span class="o">)))));</span>
+</span><span class='line'>      <span class="n">Action</span><span class="o">&lt;</span><span class="n">ExprWalker</span><span class="o">&gt;</span> <span class="n">lessNaive</span> <span class="o">=</span> <span class="n">sb1</span><span class="o">.</span><span class="na">done</span><span class="o">();</span>
 </span><span class='line'>
-</span><span class='line'>      <span class="c1">// if we come down into a Let, go to the second child</span>
-</span><span class='line'>      <span class="n">mb</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">Let</span><span class="o">(</span><span class="n">_</span><span class="o">,</span> <span class="n">_</span><span class="o">,</span> <span class="n">_</span><span class="o">),</span> <span class="n">af</span><span class="o">.</span><span class="na">action</span><span class="o">(</span><span class="n">af</span><span class="o">.</span><span class="na">down</span><span class="o">(</span><span class="n">af</span><span class="o">.</span><span class="na">go</span><span class="o">(</span><span class="mi">2</span><span class="o">))));</span>
+</span><span class='line'>      <span class="c1">// Example 3: A walker that avoids the first child of a Let, and also correctly</span>
+</span><span class='line'>      <span class="c1">// handles variables in the second child</span>
+</span><span class='line'>      <span class="n">ActionBuilder</span><span class="o">&lt;</span><span class="n">ExprWalker</span><span class="o">&gt;</span> <span class="n">sb2</span> <span class="o">=</span> <span class="n">af</span><span class="o">.</span><span class="na">sequenceBuilder</span><span class="o">();</span>
+</span><span class='line'>      <span class="c1">// Call printBinding whenever a Var(x) is found for which there is a Let(Var(x),_,_) ancestor</span>
+</span><span class='line'>      <span class="c1">// for which we are somewhere in the third child.</span>
+</span><span class='line'>      <span class="n">sb2</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">af</span><span class="o">.</span><span class="na">match</span><span class="o">(</span><span class="n">and</span><span class="o">(</span><span class="n">Var</span><span class="o">(</span><span class="n">var</span><span class="o">(</span><span class="s">&quot;x&quot;</span><span class="o">)),</span> <span class="c1">//</span>
+</span><span class='line'>              <span class="n">ancestor</span><span class="o">(</span><span class="n">and</span><span class="o">(</span><span class="n">Let</span><span class="o">(</span><span class="n">Var</span><span class="o">(</span><span class="n">var</span><span class="o">(</span><span class="s">&quot;x&quot;</span><span class="o">)),</span> <span class="n">var</span><span class="o">(</span><span class="s">&quot;e&quot;</span><span class="o">),</span> <span class="n">_</span><span class="o">),</span> <span class="n">from</span><span class="o">(</span><span class="mi">3</span><span class="o">)))),</span> <span class="n">printBinding</span><span class="o">));</span>
+</span><span class='line'>      <span class="n">sb2</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">af</span><span class="o">.</span><span class="na">down</span><span class="o">(</span><span class="n">af</span><span class="o">.</span><span class="na">match</span><span class="o">(</span><span class="n">Let</span><span class="o">(</span><span class="n">_</span><span class="o">,</span> <span class="n">_</span><span class="o">,</span> <span class="n">_</span><span class="o">),</span> <span class="n">af</span><span class="o">.</span><span class="na">action</span><span class="o">(</span><span class="n">af</span><span class="o">.</span><span class="na">go</span><span class="o">(</span><span class="mi">2</span><span class="o">)))));</span>
+</span><span class='line'>      <span class="n">Action</span><span class="o">&lt;</span><span class="n">ExprWalker</span><span class="o">&gt;</span> <span class="n">correct</span> <span class="o">=</span> <span class="n">sb2</span><span class="o">.</span><span class="na">done</span><span class="o">();</span>
 </span><span class='line'>
-</span><span class='line'>      <span class="n">Action</span><span class="o">&lt;</span><span class="n">ExprWalker</span><span class="o">&gt;</span> <span class="n">showBindings</span> <span class="o">=</span> <span class="n">mb</span><span class="o">.</span><span class="na">all</span><span class="o">();</span>
+</span><span class='line'>      <span class="c1">// Example 4: A walker that inlines bound variables</span>
+</span><span class='line'>      <span class="n">ActionBuilder</span><span class="o">&lt;</span><span class="n">ExprWalker</span><span class="o">&gt;</span> <span class="n">as</span> <span class="o">=</span> <span class="n">af</span><span class="o">.</span><span class="na">sequenceBuilder</span><span class="o">();</span>
+</span><span class='line'>      <span class="n">as</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">af</span><span class="o">.</span><span class="na">match</span><span class="o">(</span><span class="n">and</span><span class="o">(</span><span class="n">Var</span><span class="o">(</span><span class="n">var</span><span class="o">(</span><span class="s">&quot;x&quot;</span><span class="o">)),</span> <span class="c1">//</span>
+</span><span class='line'>              <span class="n">ancestor</span><span class="o">(</span><span class="n">and</span><span class="o">(</span><span class="n">Let</span><span class="o">(</span><span class="n">Var</span><span class="o">(</span><span class="n">var</span><span class="o">(</span><span class="s">&quot;x&quot;</span><span class="o">)),</span> <span class="n">var</span><span class="o">(</span><span class="s">&quot;e&quot;</span><span class="o">),</span> <span class="n">_</span><span class="o">),</span> <span class="n">from</span><span class="o">(</span><span class="mi">3</span><span class="o">)))),</span> <span class="c1">//</span>
+</span><span class='line'>              <span class="n">af</span><span class="o">.</span><span class="na">replace</span><span class="o">(</span><span class="n">var</span><span class="o">(</span><span class="s">&quot;e&quot;</span><span class="o">))));</span> <span class="c1">// replace by binding from matching Let</span>
+</span><span class='line'>      <span class="n">as</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">af</span><span class="o">.</span><span class="na">down</span><span class="o">(</span><span class="n">af</span><span class="o">.</span><span class="na">match</span><span class="o">(</span><span class="n">Let</span><span class="o">(</span><span class="n">_</span><span class="o">,</span> <span class="n">_</span><span class="o">,</span> <span class="n">_</span><span class="o">),</span> <span class="n">af</span><span class="o">.</span><span class="na">action</span><span class="o">(</span><span class="n">af</span><span class="o">.</span><span class="na">go</span><span class="o">(</span><span class="mi">2</span><span class="o">)))));</span>
+</span><span class='line'>      <span class="c1">// Drop all Lets on the way up</span>
+</span><span class='line'>      <span class="n">as</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">af</span><span class="o">.</span><span class="na">up</span><span class="o">(</span><span class="n">af</span><span class="o">.</span><span class="na">match</span><span class="o">(</span><span class="n">Let</span><span class="o">(</span><span class="n">_</span><span class="o">,</span> <span class="n">_</span><span class="o">,</span> <span class="n">var</span><span class="o">(</span><span class="s">&quot;e&quot;</span><span class="o">)),</span> <span class="n">af</span><span class="o">.</span><span class="na">replace</span><span class="o">(</span><span class="n">var</span><span class="o">(</span><span class="s">&quot;e&quot;</span><span class="o">)))));</span>
+</span><span class='line'>      <span class="n">Action</span><span class="o">&lt;</span><span class="n">ExprWalker</span><span class="o">&gt;</span> <span class="n">inline</span> <span class="o">=</span> <span class="n">as</span><span class="o">.</span><span class="na">done</span><span class="o">();</span>
 </span><span class='line'>
-</span><span class='line'>      <span class="k">for</span><span class="o">(</span><span class="n">Expr</span> <span class="n">e</span> <span class="o">:</span> <span class="k">new</span> <span class="n">Expr</span><span class="o">[]</span> <span class="o">{</span> <span class="n">ExampleExpr</span><span class="o">.</span><span class="na">expr1</span><span class="o">,</span> <span class="n">ExampleExpr</span><span class="o">.</span><span class="na">expr2</span><span class="o">,</span> <span class="n">ExampleExpr</span><span class="o">.</span><span class="na">expr3</span><span class="o">,</span> <span class="n">ExampleExpr</span><span class="o">.</span><span class="na">expr4</span><span class="o">,</span> <span class="n">ExampleExpr</span><span class="o">.</span><span class="na">expr5</span> <span class="o">})</span> <span class="o">{</span>
+</span><span class='line'>      <span class="n">Action</span><span class="o">&lt;</span><span class="n">ExprWalker</span><span class="o">&gt;</span> <span class="n">showBindings</span> <span class="o">=</span> <span class="n">lessNaive</span><span class="o">;</span> <span class="c1">// pick any example here to run</span>
+</span><span class='line'><span class="c1">//       ExprWalker toTermWalker = new ExprWalker(ExampleExpr.expr6, af.walk(showBindings));</span>
+</span><span class='line'><span class="c1">//       System.out.println(ExprToString.exprToString(ExampleExpr.expr6) + &quot;:&quot;);</span>
+</span><span class='line'><span class="c1">//       toTermWalker.start();</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="k">for</span><span class="o">(</span><span class="n">Expr</span> <span class="n">e</span> <span class="o">:</span> <span class="n">ExampleExpr</span><span class="o">.</span><span class="na">allExprs</span><span class="o">)</span> <span class="o">{</span>
 </span><span class='line'>          <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">ExprToString</span><span class="o">.</span><span class="na">exprToString</span><span class="o">(</span><span class="n">e</span><span class="o">)</span> <span class="o">+</span> <span class="s">&quot;:&quot;</span><span class="o">);</span>
 </span><span class='line'>          <span class="n">ExprWalker</span> <span class="n">toTermWalker</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ExprWalker</span><span class="o">(</span><span class="n">e</span><span class="o">,</span> <span class="n">af</span><span class="o">.</span><span class="na">walk</span><span class="o">(</span><span class="n">showBindings</span><span class="o">));</span>
 </span><span class='line'>          <span class="c1">// run it</span>
 </span><span class='line'>          <span class="n">toTermWalker</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+</span><span class='line'>          <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;  =&gt; &quot;</span> <span class="o">+</span> <span class="n">ExprToString</span><span class="o">.</span><span class="na">exprToString</span><span class="o">(</span><span class="n">toTermWalker</span><span class="o">.</span><span class="na">getData</span><span class="o">()));</span>
 </span><span class='line'>          <span class="c1">// print the contents of S</span>
 </span><span class='line'>      <span class="o">}</span>
 </span><span class='line'>  <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>  <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kd">class</span> <span class="nc">BindingsPrinter</span> <span class="kd">extends</span> <span class="n">BaseMatchAction</span><span class="o">&lt;</span><span class="n">Expr</span><span class="o">,</span> <span class="n">Type</span><span class="o">,</span> <span class="n">ExprCursor</span><span class="o">,</span> <span class="n">ExprWalker</span><span class="o">&gt;</span> <span class="o">{</span>
+</span><span class='line'>      <span class="nd">@Override</span>
+</span><span class='line'>      <span class="kd">public</span> <span class="kt">int</span> <span class="nf">step</span><span class="o">(</span><span class="n">ExprWalker</span> <span class="n">walker</span><span class="o">,</span> <span class="n">Environment</span><span class="o">&lt;</span><span class="n">ExprCursor</span><span class="o">&gt;</span> <span class="n">env</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>          <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;  Var(&quot;</span> <span class="o">+</span> <span class="n">env</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&quot;x&quot;</span><span class="o">).</span><span class="na">treeToString</span><span class="o">()</span> <span class="o">+</span> <span class="s">&quot;) -&gt; &quot;</span> <span class="o">+</span> <span class="n">ExprToString</span><span class="o">.</span><span class="na">exprToString</span><span class="o">(</span><span class="n">env</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&quot;e&quot;</span><span class="o">).</span><span class="na">getData</span><span class="o">()));</span>
+</span><span class='line'>          <span class="k">return</span> <span class="n">PROCEED</span><span class="o">;</span>
+</span><span class='line'>      <span class="o">}</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>  <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kd">class</span> <span class="nc">BindingsReplacer</span> <span class="kd">extends</span> <span class="n">BaseMatchAction</span><span class="o">&lt;</span><span class="n">Expr</span><span class="o">,</span> <span class="n">Type</span><span class="o">,</span> <span class="n">ExprCursor</span><span class="o">,</span> <span class="n">ExprWalker</span><span class="o">&gt;</span> <span class="o">{</span>
+</span><span class='line'>      <span class="nd">@Override</span>
+</span><span class='line'>      <span class="kd">public</span> <span class="kt">int</span> <span class="nf">step</span><span class="o">(</span><span class="n">ExprWalker</span> <span class="n">walker</span><span class="o">,</span> <span class="n">Environment</span><span class="o">&lt;</span><span class="n">ExprCursor</span><span class="o">&gt;</span> <span class="n">env</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>          <span class="n">walker</span><span class="o">.</span><span class="na">replace</span><span class="o">(</span><span class="n">env</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&quot;e&quot;</span><span class="o">));</span>
+</span><span class='line'>          <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;  Var(&quot;</span> <span class="o">+</span> <span class="n">env</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&quot;x&quot;</span><span class="o">).</span><span class="na">treeToString</span><span class="o">()</span> <span class="o">+</span> <span class="s">&quot;) -&gt; &quot;</span> <span class="o">+</span> <span class="n">ExprToString</span><span class="o">.</span><span class="na">exprToString</span><span class="o">(</span><span class="n">env</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&quot;e&quot;</span><span class="o">).</span><span class="na">getData</span><span class="o">()));</span>
+</span><span class='line'>          <span class="k">return</span> <span class="n">PROCEED</span><span class="o">;</span>
+</span><span class='line'>      <span class="o">}</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'>
 </span><span class='line'><span class="o">}</span>
 </span></code></pre></td></tr></table></div></figure>
 
