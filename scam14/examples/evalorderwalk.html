@@ -92,7 +92,7 @@
 
 <p>We rely on the default walk to bring us around the tree, with small detours as necessary. The overall evaluation order is bottom-up, so by default, we want to apply the <code>userAction</code> when going up (<code>af.up(userAction)</code>). We then provide special cases for when the walk should deviate from the default.</p>
 
-<p>The full code of the example walk and example language library is at <a href="https://github.com/nuthatchery/nuthatch/tree/8738a668b26f8e1e8f1a721e6b40d5f3ea3f0c97/src/nuthatch/examples">GitHub</a> (version as of the SCAM’14 paper; most recent revision is <a href="https://github.com/nuthatchery/nuthatch/tree/master/src/nuthatch/examples">here</a>).</p>
+<p>The full code of the example walk and example language library is at <a href="https://github.com/nuthatchery/nuthatch/tree/48a8f13e6e0853ceff33c61e116e1834d773de98/src/nuthatch/examples">GitHub</a> (version as of the SCAM’14 paper; most recent revision is <a href="https://github.com/nuthatchery/nuthatch/tree/master/src/nuthatch/examples">here</a>).</p>
 
 <!-- more -->
 
@@ -214,8 +214,6 @@
 <span class='line-number'>112</span>
 <span class='line-number'>113</span>
 <span class='line-number'>114</span>
-<span class='line-number'>115</span>
-<span class='line-number'>116</span>
 </pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kn">package</span> <span class="n">nuthatch</span><span class="o">.</span><span class="na">examples</span><span class="o">;</span>
 </span><span class='line'>
 </span><span class='line'><span class="kn">import</span> <span class="nn">static</span> <span class="n">nuthatch</span><span class="o">.</span><span class="na">examples</span><span class="o">.</span><span class="na">xmpllang</span><span class="o">.</span><span class="na">full</span><span class="o">.</span><span class="na">XmplPatterns</span><span class="o">.*;</span>
@@ -233,10 +231,8 @@
 </span><span class='line'>
 </span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">EvalOrderWalk</span> <span class="kd">implements</span> <span class="n">Walk</span><span class="o">&lt;</span><span class="n">XmplWalker</span><span class="o">&gt;</span> <span class="o">{</span>
 </span><span class='line'>  <span class="kd">final</span> <span class="n">Action</span><span class="o">&lt;</span><span class="n">XmplWalker</span><span class="o">&gt;</span> <span class="n">userAction</span><span class="o">;</span>
-</span><span class='line'>
-</span><span class='line'>
-</span><span class='line'>
 </span><span class='line'>  <span class="kd">final</span> <span class="n">Action</span><span class="o">&lt;</span><span class="n">XmplWalker</span><span class="o">&gt;</span> <span class="n">action</span><span class="o">;</span>
+</span><span class='line'>
 </span><span class='line'>  <span class="kd">public</span> <span class="nf">EvalOrderWalk</span><span class="o">(</span><span class="n">Action</span><span class="o">&lt;</span><span class="n">XmplWalker</span><span class="o">&gt;</span> <span class="n">action</span><span class="o">)</span> <span class="o">{</span>
 </span><span class='line'>      <span class="k">this</span><span class="o">.</span><span class="na">userAction</span> <span class="o">=</span> <span class="n">action</span><span class="o">;</span>
 </span><span class='line'>
@@ -335,7 +331,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-
+<p>Sample output:</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -402,7 +398,7 @@
 
 <aside class="sidebar">
   
-    <section> <h1>Nuthatch@SCAM14</h1> <ul> <li><a href="/scam14/">Overview</a></li> <li>Examples <ul> <li>– <a href="/scam14/examples/tostring.html">ToString</a></li> </ul> </li> </ul> </section>
+    <section> <h1>Nuthatch@SCAM14</h1> <ul> <li><a href="/scam14/">Overview</a></li> <li>Examples <ul> <li>– <a href="/scam14/examples/exprbindings.html">Ancestor matching</a></li> <li>– <a href="/scam14/examples/evalorderwalk.html">Evaluation Order Walk</a></li> <li>– <a href="/scam14/examples/printer.html">Term Printer</a></li> </ul> </li> </ul> </section>
   
   
       
