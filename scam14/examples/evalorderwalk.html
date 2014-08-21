@@ -9,7 +9,7 @@
   <meta name="author" content="The Nuthatchery">
 
   
-  <meta name="description" content="Example: EvalOrderWalk Aug 19th, 2014 The full code of the example and expression language library is at GitHub (version as of the SCAM’14 paper; &hellip;">
+  <meta name="description" content="Example: EvalOrderWalk Aug 19th, 2014 This example shows how a custom walk can be created that will visit tree nodes in evaluation order and apply a &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -88,7 +88,11 @@
 <time datetime="2014-08-19T18:38:00+02:00" pubdate data-updated="true">Aug 19<span>th</span>, 2014</time></p>
   </header>
   
-    <p>The full code of the example and expression language library is at <a href="https://github.com/nuthatchery/nuthatch/tree/8738a668b26f8e1e8f1a721e6b40d5f3ea3f0c97/src/nuthatch/examples">GitHub</a> (version as of the SCAM’14 paper; most recent revision is <a href="https://github.com/nuthatchery/nuthatch/tree/master/src/nuthatch/examples">here</a>).</p>
+    <p>This example shows how a custom walk can be created that will visit tree nodes in evaluation order and apply a <code>userAction</code>.</p>
+
+<p>We rely on the default walk to bring us around the tree, with small detours as necessary. The overall evaluation order is bottom-up, so by default, we want to apply the <code>userAction</code> when going up (<code>af.up(userAction)</code>). We then provide special cases for when the walk should deviate from the default.</p>
+
+<p>The full code of the example walk and example language library is at <a href="https://github.com/nuthatchery/nuthatch/tree/8738a668b26f8e1e8f1a721e6b40d5f3ea3f0c97/src/nuthatch/examples">GitHub</a> (version as of the SCAM’14 paper; most recent revision is <a href="https://github.com/nuthatchery/nuthatch/tree/master/src/nuthatch/examples">here</a>).</p>
 
 <!-- more -->
 
@@ -329,6 +333,34 @@
 </span><span class='line'>
 </span><span class='line'><span class="o">}</span>
 </span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Declare(Var("i"), Int(10), While(Var("i"), Assign(Var("i"), Add(Var("i"), Int(-1))))):
+</span><span class='line'>    0: Int(10)
+</span><span class='line'>    1: Declare(Var("i"), Int(10), While(Var("i"), Assign(Var("i"), Add(Var("i"), Int(-1)))))
+</span><span class='line'>    2: Var("i")
+</span><span class='line'>    3: While(Int(10), Assign(Var("i"), Add(Var("i"), Int(-1))))
+</span><span class='line'>    4: Var("i")
+</span><span class='line'>    5: Int(-1)
+</span><span class='line'>    6: Add(Int(10), Int(-1))
+</span><span class='line'>    7: Assign(Var("i"), Add(Int(10), Int(-1)))
+</span><span class='line'>    8: While(Int(10), Assign(Var("i"), Add(Int(10), Int(-1))))
+</span><span class='line'>    9: Declare(Var("i"), Int(10), While(Int(10), Assign(Var("i"), Add(Int(10), Int(-1)))))
+</span><span class='line'> =&gt; While(Int(10), Assign(Var("i"), Add(Int(10), Int(-1))))</span></code></pre></td></tr></table></div></figure>
 
 
 
